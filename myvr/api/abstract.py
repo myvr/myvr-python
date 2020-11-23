@@ -77,19 +77,16 @@ class APIResource(BaseAPI):
         :return: Dictionary or List with processed values
         """
 
+        try:
+            response_data = response.json()
+        except json.JSONDecodeError:
+            response_data = response.text
+
         if not response.ok:
             raise MyVRAPIException(data={'error': response.reason, 'method': response.request.method,
-                                         'status_code': response.status_code, 'message': response.json()})
+                                         'status_code': response.status_code, 'message': response_data})
 
-        try:
-            response = response.json()
-        except json.JSONDecodeError:
-            return {'response_text': response.text}
-
-        if not isinstance(response, dict):
-            raise TypeError(f'Response should be a dictionary. Given: {type(response)}')
-
-        return response
+        return {'response_text': response_data} if isinstance(response_data, str) else response_data
 
     def request(self, method: str, url: str, headers=None, data=None) -> Union[MyVRObject, MyVRCollection]:
         """
