@@ -2,6 +2,7 @@ from typing import ClassVar, Union
 import requests
 import json
 
+from myvr.api.exceptions import ResourceUrlError
 from myvr.api.myvr_objects import MyVRCollection, MyVRObject
 from myvr.api.constants import CODE_TO_MSG
 
@@ -22,6 +23,12 @@ class ApiResource:
         :param api_url: str, API url to make requests
         :param version: str, API version, default v1
         """
+
+        if not api_url.endswith('/'):
+            raise ResourceUrlError()
+
+        if not self.resource_url.endswith('/'):
+            raise ResourceUrlError()
 
         self._api_key = api_key
         self._version = version

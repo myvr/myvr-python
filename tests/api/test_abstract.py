@@ -4,6 +4,7 @@ import pytest
 import requests_mock
 
 from myvr.api.abstract import ApiResource, CreateMixin, DeleteMixin, ListMixin, UpdateMixin
+from myvr.api.exceptions import ResourceUrlError
 from myvr.api.myvr_objects import MyVRCollection, MyVRObject
 from tests.conftest import API_KEY, API_URL, API_VERSION
 
@@ -84,6 +85,22 @@ class TestApiResource:
         assert list(myvr_collection) == resource_list_data['results']
         assert myvr_collection.pagination['limit'] == resource_list_data['limit']
         assert myvr_collection.pagination['offset'] == resource_list_data['offset']
+
+    def test_create_resource_with_invalid_api_url(self):
+        with pytest.raises(ResourceUrlError):
+            class MyResource(ApiResource):
+                model_name = 'MyResource'
+                resource_url = '/my-resource/'
+
+            MyResource('api_key', 'api_url', 'v1')
+
+    def test_create_resource_with_invalid_resource_url(self):
+        with pytest.raises(ResourceUrlError):
+            class MyResource(ApiResource):
+                model_name = 'MyResource'
+                resource_url = '/my-resource'
+
+            MyResource('api_key', 'api_url/', 'v1')
 
 
 class TestCreateMixin:
