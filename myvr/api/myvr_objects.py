@@ -10,7 +10,7 @@ class MyVRObject(dict):
         self.name = name
         self.key = fields.get('key', None)
         self.response_text = fields.pop('response_text', None)
-
+        
         super().__init__(fields)
 
 
