@@ -4,7 +4,7 @@ import pytest
 import requests_mock
 
 from myvr.api.abstract import APIResource, CreateMixin, DeleteMixin, ListMixin, UpdateMixin
-from myvr.api.exceptions import ResourceUrlError
+from myvr.api.exceptions import MyVRAPIException, ResourceUrlError
 from myvr.api.myvr_objects import MyVRCollection, MyVRObject
 from tests.conftest import API_KEY, API_URL, API_VERSION
 
@@ -104,6 +104,42 @@ class TestApiResource:
 
             MyResource('api_key', 'api_url/', 'v1')
 
+    def test_make_bad_request(self, api_url):
+        actual_response = {
+            'key': ['Field is required']
+        }
+        status_code = 400
+        with requests_mock.Mocker() as m:
+            resource_url = f"{api_url}{self.MyResource.resource_url}"
+
+            m.post(
+                resource_url,
+                text=json.dumps(actual_response),
+                status_code=status_code
+            )
+            with pytest.raises(MyVRAPIException) as e:
+                self.resource.request('POST', self.resource.base_url)
+
+            error_data = e.value.data
+            assert error_data['status_code'] == status_code
+            assert error_data['message'] == actual_response
+
+    def test_string_response(self, api_url):
+        text = 'string'
+        with requests_mock.Mocker() as m:
+            resource_url = f"{api_url}{self.MyResource.resource_url}"
+
+            m.get(resource_url, text=text)
+            response = self.resource.request('GET', self.resource.base_url)
+            assert response.response_text == text
+
+    def test_list_response(self, api_url):
+        with requests_mock.Mocker() as m:
+            resource_url = f"{api_url}{self.MyResource.resource_url}"
+
+            m.get(resource_url, text='[]')
+            with pytest.raises(TypeError):
+                self.resource.request('GET', self.resource.base_url)
 
 class TestCreateMixin:
     class MyResource(CreateMixin):
