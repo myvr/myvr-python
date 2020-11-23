@@ -2,7 +2,7 @@ from myvr.api.abstract import CreateMixin, DeleteMixin, ListMixin, UpdateMixin
 from myvr.resources import Property
 
 
-class TestPhotoResource:
+class TestPropertyResource:
     def test_settings(self):
         assert Property.resource_url == '/properties/'
         assert Property.model_name == 'Property'
