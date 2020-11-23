@@ -3,7 +3,7 @@ import json
 import pytest
 import requests_mock
 
-from myvr.api.abstract import ApiResource, CreateMixin, DeleteMixin, ListMixin, UpdateMixin
+from myvr.api.abstract import APIResource, CreateMixin, DeleteMixin, ListMixin, UpdateMixin
 from myvr.api.exceptions import ResourceUrlError
 from myvr.api.myvr_objects import MyVRCollection, MyVRObject
 from tests.conftest import API_KEY, API_URL, API_VERSION
@@ -26,11 +26,12 @@ def resource_list_data():
         ],
         'limit': 0,
         'offset': 5,
+        'count': 2
     }
 
 
 class TestApiResource:
-    class MyResource(ApiResource):
+    class MyResource(APIResource):
         model_name = 'MyResource'
         resource_url = '/my-resource/'
 
@@ -83,12 +84,13 @@ class TestApiResource:
         assert isinstance(myvr_collection, MyVRCollection)
         assert len(myvr_collection) == len(resource_list_data['results'])
         assert list(myvr_collection) == resource_list_data['results']
-        assert myvr_collection.pagination['limit'] == resource_list_data['limit']
-        assert myvr_collection.pagination['offset'] == resource_list_data['offset']
+        assert myvr_collection.meta['limit'] == resource_list_data['limit']
+        assert myvr_collection.meta['offset'] == resource_list_data['offset']
+        assert myvr_collection.meta['count'] == resource_list_data['count']
 
     def test_create_resource_with_invalid_api_url(self):
         with pytest.raises(ResourceUrlError):
-            class MyResource(ApiResource):
+            class MyResource(APIResource):
                 model_name = 'MyResource'
                 resource_url = '/my-resource/'
 
@@ -96,7 +98,7 @@ class TestApiResource:
 
     def test_create_resource_with_invalid_resource_url(self):
         with pytest.raises(ResourceUrlError):
-            class MyResource(ApiResource):
+            class MyResource(APIResource):
                 model_name = 'MyResource'
                 resource_url = '/my-resource'
 
@@ -131,7 +133,7 @@ class TestUpdateMixin:
         with requests_mock.Mocker() as m:
             m.put(resource_url, text=json.dumps(resource_data))
             resource = self.MyResource(API_KEY, API_URL, API_VERSION)
-            response = resource.put(**resource_data)
+            response = resource.update(**resource_data)
 
             assert isinstance(response, MyVRObject)
             assert response.key == resource_data['key']
@@ -166,7 +168,7 @@ class TestListMixin:
             m.get(resource_url, text=json.dumps(resource_list_data))
 
             resource = self.MyResource(API_KEY, API_URL, API_VERSION)
-            response = resource.list_objects()
+            response = resource.list()
 
             assert isinstance(response, MyVRCollection)
             assert list(response) == resource_list_data['results']
