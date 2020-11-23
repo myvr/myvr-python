@@ -3,10 +3,25 @@ import requests
 import json
 
 from myvr.api.myvr_objects import MyVRCollection, MyVRObject
-from myvr.api.constants import CODE_TO_MSG
+from myvr.api.exceptions import MyVRAPIException
 
 
-class ApiResource:
+class BaseAPI:
+    def __init__(self, api_key: str, api_url: str, version: str):
+        self._api_key = api_key
+        self._api_url = api_url
+        self._version = version
+
+    @property
+    def api_url(self):
+        return self._api_url
+
+    @property
+    def version(self):
+        return self._version
+
+
+class APIResource(BaseAPI):
     """
     ApiResource abstract class that performs API calls and response processing.
     base_url: str, API-url to perform requests should be specified in general class not the abstract.
@@ -23,13 +38,11 @@ class ApiResource:
         :param version: str, API version, default v1
         """
 
-        self._api_key = api_key
-        self._version = version
-        self._api_url = api_url
+        super(APIResource, self).__init__(api_key, api_url, version)
 
     @property
     def base_url(self):
-        return f"{self._api_url}{self._version}{self.resource_url}"
+        return f"{self.api_url}{self.version}{self.resource_url}"
 
     @property
     def auth_header(self):
@@ -54,7 +67,8 @@ class ApiResource:
         """
 
         if not response.ok:
-            return {'error': CODE_TO_MSG[response.status_code], 'status_code': response.status_code}
+            raise MyVRAPIException(data={'error': response.reason, 'method': response.request.method,
+                                         'status_code': response.status_code, 'message': response.json()})
 
         try:
             response = response.json()
@@ -91,7 +105,7 @@ class ApiResource:
         return self.request('GET', self.get_key_url(key), data=data)
 
 
-class CreateMixin(ApiResource):
+class CreateMixin(APIResource):
 
     def create(self, **data):
         """
@@ -103,9 +117,9 @@ class CreateMixin(ApiResource):
         return self.request('POST', self.base_url, data=data)
 
 
-class UpdateMixin(ApiResource):
+class UpdateMixin(APIResource):
 
-    def put(self, key: str, **data):
+    def update(self, key: str, **data):
         """
         Base method to perform PUT request
         :param key: str, The primary key of the instance
@@ -116,7 +130,7 @@ class UpdateMixin(ApiResource):
         return self.request('PUT', self.get_key_url(key), data=data)
 
 
-class DeleteMixin(ApiResource):
+class DeleteMixin(APIResource):
 
     def delete(self, key: str, **data):
         """
@@ -129,9 +143,9 @@ class DeleteMixin(ApiResource):
         return self.request('DELETE', self.get_key_url(key), data=data)
 
 
-class ListMixin(ApiResource):
+class ListMixin(APIResource):
 
-    def list_objects(self, limit: int = 0, offset: int = 0, **data):
+    def list(self, limit: int = 0, offset: int = 0, **data):
         """
         Base method to perform GET request for many data points
         :param limit: int, Pagination parameter. The limit of the query, default 0
