@@ -9,9 +9,9 @@ class MyVRObject(dict):
 
         self.name = name
 
-        self.key = fields.get('key', None)
-        self.error = fields.get('error', None)
-        self.response_text = fields.get('response_text', None)
+        self.key = fields.get('key')
+        self.error = fields.get('error')
+        self.response_text = fields.get('response_text')
 
         if self.response_text:
             fields.pop('response_text')

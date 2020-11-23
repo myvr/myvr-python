@@ -1,4 +1,4 @@
-from typing import ClassVar
+from typing import ClassVar, Union
 import requests
 import json
 
@@ -66,7 +66,7 @@ class ApiResource:
 
         return response
 
-    def request(self, method: str, url: str, headers=None, data=None):
+    def request(self, method: str, url: str, headers=None, data=None) -> Union[MyVRObject, MyVRCollection]:
         """
         Performs request to the API.
         :param method: str, HTTP method name in uppercase
@@ -76,9 +76,18 @@ class ApiResource:
         :return: MyVRObject with the fields of the model or error information
         """
 
-        response = requests.request(method, url, headers=self.get_headers(headers if headers else {}), data=data)
-        resp = self._verify_response(response)
-        return MyVRCollection(resp, self.model_name) if 'results' in resp else MyVRObject(resp, self.model_name)
+        headers = self.get_headers(headers if headers else {})
+        response = requests.request(method, url, headers=headers, data=data)
+        data = self._verify_response(response)
+        return self.convert_to_myvr_object(data)
+
+    def convert_to_myvr_object(self, response_data: dict) -> Union[MyVRObject, MyVRCollection]:
+        if 'results' in response_data:
+            object_cls = MyVRCollection
+        else:
+            object_cls = MyVRObject
+
+        return object_cls(response_data, self.model_name)
 
     def retrieve(self, key: str, **data):
         """
