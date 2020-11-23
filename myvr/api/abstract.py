@@ -1,9 +1,9 @@
-from myvr.api.myvr_objects import MyVRCollection, MyVRObject
-from myvr.api.constants import CODE_TO_MSG
-
 from typing import ClassVar
 import requests
 import json
+
+from myvr.api.myvr_objects import MyVRCollection, MyVRObject
+from myvr.api.constants import CODE_TO_MSG
 
 
 class ApiResource:
