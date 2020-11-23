@@ -1,7 +1,7 @@
 from myvr.api.myvr_objects import MyVRCollection, MyVRObject
 from myvr.api.constants import CODE_TO_MSG
-from myvr.api.exceptions import MyVRException
 
+from typing import ClassVar
 import requests
 import json
 
@@ -13,9 +13,10 @@ class ApiResource:
     model_name: str, The name of the model should be specified in general class not the abstract.
     """
 
-    resource_url, model_name = '', ''
+    resource_url: ClassVar[str]
+    model_name: ClassVar[str]
 
-    def __init__(self, api_key: str = '', api_url: str = '', version: str = 'v1'):
+    def __init__(self, api_key: str, api_url: str, version: str):
         """
         :param api_key: str, API key from MyVR.com
         :param api_url: str, API url to make requests
@@ -26,12 +27,6 @@ class ApiResource:
         self._version = version
         self._api_url = api_url
 
-        if not self._api_key:
-            raise MyVRException('Field: api_key should be specified')
-
-        if not self._api_url:
-            raise MyVRException('You should specify a base url for APIResource')
-
     @property
     def base_url(self):
         return f"{self._api_url}{self._version}{self.resource_url}"
@@ -40,6 +35,15 @@ class ApiResource:
     def auth_header(self):
         """Returns auth header"""
         return {'Authorization': f'Bearer {self._api_key}'}
+
+    def get_key_url(self, key: str):
+        return f"{self.base_url}{key}/"
+
+    def get_headers(self, headers: dict):
+        if 'Authorization' not in headers:
+            headers.update(self.auth_header)
+
+        return headers
 
     @staticmethod
     def _verify_response(response: requests.Response):
@@ -72,8 +76,7 @@ class ApiResource:
         :return: MyVRObject with the fields of the model or error information
         """
 
-        headers = headers if headers else self.auth_header
-        response = requests.request(method, url, headers=headers, data=data)
+        response = requests.request(method, url, headers=self.get_headers(headers), data=data)
         resp = self._verify_response(response)
         return MyVRCollection(resp, self.model_name) if 'results' in resp else MyVRObject(resp, self.model_name)
 
@@ -85,7 +88,7 @@ class ApiResource:
         :return: MyVRObject instance with given key or error information
         """
 
-        return self.request('GET', self.base_url + f'{key}/', data=data)
+        return self.request('GET', self.get_key_url(key), data=data)
 
 
 class CreateMixin(ApiResource):
@@ -102,7 +105,7 @@ class CreateMixin(ApiResource):
 
 class UpdateMixin(ApiResource):
 
-    def put(self, key, **data):
+    def put(self, key: str, **data):
         """
         Base method to perform PUT request
         :param key: str, The primary key of the instance
@@ -110,12 +113,12 @@ class UpdateMixin(ApiResource):
         :return: MyVRObject instance with given key or error information
         """
 
-        return self.request('PUT', self.base_url + f'{key}/', data=data)
+        return self.request('PUT', self.get_key_url(key), data=data)
 
 
 class DeleteMixin(ApiResource):
 
-    def delete(self, key, **data):
+    def delete(self, key: str, **data):
         """
         Base method to perform GET request
         :param key: str, The primary key of the instance
@@ -123,12 +126,12 @@ class DeleteMixin(ApiResource):
         :return: Empty MyVRObject instance or error information
         """
 
-        return self.request('DELETE', self.base_url + f'{key}/', data=data)
+        return self.request('DELETE', self.get_key_url(key), data=data)
 
 
 class ListMixin(ApiResource):
 
-    def list_objects(self, limit=0, offset=0, **data):
+    def list_objects(self, limit: int = 0, offset: int = 0, **data):
         """
         Base method to perform GET request for many data points
         :param limit: int, Pagination parameter. The limit of the query, default 0
