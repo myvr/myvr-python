@@ -14,3 +14,6 @@ class TestPropertyResource:
         actual_actions = set(Property.__mro__).intersection(expected_actions)
 
         assert len(actual_actions) == len(expected_actions)
+
+    def test_reset_rate(self):
+        pass

@@ -86,6 +86,9 @@ class APIResource(BaseAPI):
             raise MyVRAPIException(data={'error': response.reason, 'method': response.request.method,
                                          'status_code': response.status_code, 'message': response_data})
 
+        if not isinstance(response_data, (dict, str)):
+            raise TypeError(f'Response should be dict or str type given: {type(response_data)}')
+
         return {'response_text': response_data} if isinstance(response_data, str) else response_data
 
     def request(self, method: str, url: str, headers=None, data=None) -> Union[MyVRObject, MyVRCollection]:
