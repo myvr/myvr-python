@@ -76,7 +76,7 @@ class ApiResource:
         :return: MyVRObject with the fields of the model or error information
         """
 
-        response = requests.request(method, url, headers=self.get_headers(headers), data=data)
+        response = requests.request(method, url, headers=self.get_headers(headers if headers else {}), data=data)
         resp = self._verify_response(response)
         return MyVRCollection(resp, self.model_name) if 'results' in resp else MyVRObject(resp, self.model_name)
 
