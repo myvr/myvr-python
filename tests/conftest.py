@@ -29,3 +29,8 @@ def resource_list_data():
         'offset': 5,
         'count': 2
     }
+
+
+@pytest.fixture
+def key():
+    return 'key'

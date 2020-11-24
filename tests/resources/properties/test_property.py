@@ -30,11 +30,11 @@ class TestResetRateMethod:
     def resource(self):
         return Property(API_KEY, API_URL, API_VERSION)
 
-    def test_invalid_body(self, key):
+    def test_invalid_body(self, api_url, key):
         status_code = 400
         actual_response = {'non_field_errors': ['Expected a list of items but got type "dict".']}
         with requests_mock.Mocker() as m:
-            resource_url = f"{API_URL}{self.resource.resource_url}{key}/rates/"
+            resource_url = f"{api_url}{self.resource.resource_url}{key}/rates/"
             m.put(resource_url, text=json.dumps(actual_response), status_code=status_code)
 
             with pytest.raises(MyVRAPIException) as e:
@@ -44,15 +44,14 @@ class TestResetRateMethod:
             assert error_data['status_code'] == status_code
             assert error_data['message'] == actual_response
 
-    def test_correct_body(self, key, **params):
+    def test_correct_body(self, api_url, key):
         expected_response = {}
 
         with requests_mock.Mocker() as m:
-            resource_url = f"{API_URL}{self.resource.resource_url}{key}/rates/"
+            resource_url = f"{api_url}{self.resource.resource_url}{key}/rates/"
 
             m.put(resource_url, text=json.dumps(expected_response))
             res = self.resource.request('PUT', resource_url)
 
             assert isinstance(res, MyVRObject)
             assert res.key is None
-
