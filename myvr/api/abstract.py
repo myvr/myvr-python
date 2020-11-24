@@ -1,11 +1,11 @@
 import json
-
 from typing import ClassVar, Union
+from urllib import parse
 
 import requests
 
-from myvr.api.myvr_objects import MyVRCollection, MyVRObject
 from myvr.api.exceptions import MyVRAPIException, ResourceUrlError
+from myvr.api.myvr_objects import MyVRCollection, MyVRObject
 
 
 class BaseAPI:
@@ -96,9 +96,6 @@ class APIResource(BaseAPI):
                     'message': response_data,
                 })
 
-        if not isinstance(response_data, (dict, str)):
-            raise TypeError(f'Response should be dict or str type given: {type(response_data)}')
-
         if isinstance(response_data, str):
             return {'response_text': response_data}
 
@@ -126,7 +123,11 @@ class APIResource(BaseAPI):
         return self.convert_to_myvr_object(data)
 
     def convert_to_myvr_object(self, response_data: dict) -> Union[MyVRObject, MyVRCollection]:
-        object_cls = MyVRCollection if 'results' in response_data else MyVRObject
+        if isinstance(response_data, list) or 'results' in response_data:
+            object_cls = MyVRCollection
+        else:
+            object_cls = MyVRObject
+
         return object_cls(response_data, self.model_name)
 
     def retrieve(self, key: str, **data) -> MyVRObject:
@@ -176,14 +177,27 @@ class DeleteMixin(APIResource):
 
 
 class ListMixin(APIResource):
-    def list(self, limit: int = 0, offset: int = 0, **data) -> MyVRCollection:
+    def list(
+            self,
+            limit: int = 0,
+            offset: int = 0,
+            query_params: dict = None,
+            data: dict = None
+    ) -> MyVRCollection:
         """
         Base method to perform GET request for many data points
         :param limit: int, Pagination parameter. The limit of the query, default 0
         :param offset: int, Pagination parameter. The offset of the query, default 0
+        :param query_params: dict, params for query string
         :param data: dict, Request's body, default None
-        :return: List of MyVRObject instances or error information
+        :return: List of MyVRObject instances or error information.
         """
+
+        if not data:
+            data = {}
+
+        if not query_params:
+            query_params = {}
 
         if limit not in data:
             data['limit'] = limit
@@ -191,4 +205,7 @@ class ListMixin(APIResource):
         if offset not in data:
             data['offset'] = offset
 
-        return self.request('GET', self.base_url, data=data)
+        query = parse.urlencode(query_params)
+        url = f'{self.base_url}?{query}'
+
+        return self.request('GET', url, data=data)

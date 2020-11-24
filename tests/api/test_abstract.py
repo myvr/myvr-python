@@ -138,8 +138,8 @@ class TestApiResource:
             resource_url = f"{api_url}{self.MyResource.resource_url}"
 
             m.get(resource_url, text='[]')
-            with pytest.raises(TypeError):
-                self.resource.request('GET', self.resource.base_url)
+            response = self.resource.request('GET', self.resource.base_url)
+            assert isinstance(response, list)
 
 
 class TestCreateMixin:
@@ -209,3 +209,18 @@ class TestListMixin:
 
             assert isinstance(response, MyVRCollection)
             assert list(response) == resource_list_data['results']
+
+    def test_list_with_query(self, api_url):
+        resource_url = f'{api_url}{self.MyResource.resource_url}?a=1&b=2'
+        expected_result = [
+            {'key': 'key1', 'name': 'name1'},
+            {'key': 'key2', 'name': 'name2'},
+        ]
+        with requests_mock.Mocker() as m:
+            m.get(resource_url, text=json.dumps(expected_result))
+
+            resource = self.MyResource(API_KEY, API_URL, API_VERSION)
+            response = resource.list(query_params={'a': 1, 'b': 2})
+
+            assert isinstance(response, MyVRCollection)
+            assert len(response) == len(expected_result)
