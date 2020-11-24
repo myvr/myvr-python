@@ -1,3 +1,7 @@
 # flake8: noqa
 
-from .properties import Property, Photo
+from .properties import (
+    CalendarEvent,
+    Property,
+    Photo,
+)
