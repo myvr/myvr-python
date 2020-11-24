@@ -1,4 +1,4 @@
-from myvr.api.abstract import ListMixin
+from myvr.api.mixins import ListMixin
 
 
 class DailyAvailability(ListMixin):

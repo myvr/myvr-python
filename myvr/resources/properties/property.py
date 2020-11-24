@@ -1,7 +1,7 @@
-from myvr.api.abstract import ListMixin, CreateMixin, UpdateMixin, DeleteMixin
+from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 
 
-class Property(CreateMixin, UpdateMixin, DeleteMixin, ListMixin):
+class Property(CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin):
     resource_url = '/properties/'
     model_name = 'Property'
 

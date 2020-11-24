@@ -1,5 +1,5 @@
-from myvr.api.abstract import CreateMixin, DeleteMixin, ListMixin, UpdateMixin
 from myvr import MyVRAPIException, MyVRClient
+from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources import Property
 
@@ -11,7 +11,7 @@ class TestPropertyResource:
 
     def test_base_actions(self):
         expected_actions = {
-            CreateMixin, UpdateMixin, DeleteMixin, ListMixin
+            CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin
         }
         actual_actions = set(Property.__mro__).intersection(expected_actions)
 

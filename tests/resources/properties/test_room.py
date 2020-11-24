@@ -1,4 +1,4 @@
-from myvr.api.abstract import CreateMixin, DeleteMixin, ListMixin, UpdateMixin
+from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.resources import Room
 
 
@@ -9,7 +9,7 @@ class TestRoomResource:
 
     def test_base_actions(self):
         expected_actions = {
-            CreateMixin, UpdateMixin, DeleteMixin, ListMixin
+            CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin
         }
         actual_actions = set(Room.__mro__).intersection(expected_actions)
 
