@@ -1,6 +1,6 @@
-from myvr.api.abstract import CreateMixin, DeleteMixin, ListMixin, UpdateMixin
+from myvr.api.mixins import ModelViewSet
 
 
-class CalendarEvent(CreateMixin, UpdateMixin, DeleteMixin, ListMixin):
+class CalendarEvent(ModelViewSet):
     resource_url = '/calendar-events/'
     model_name = 'Calendar Event'

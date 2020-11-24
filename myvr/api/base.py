@@ -1,11 +1,10 @@
 import json
-
 from typing import ClassVar, Union
 
 import requests
 
-from myvr.api.myvr_objects import MyVRCollection, MyVRObject
 from myvr.api.exceptions import MyVRAPIException, ResourceUrlError
+from myvr.api.myvr_objects import MyVRCollection, MyVRObject
 
 
 class BaseAPI:
@@ -96,9 +95,6 @@ class APIResource(BaseAPI):
                     'message': response_data,
                 })
 
-        if not isinstance(response_data, (dict, str)):
-            raise TypeError(f'Response should be dict or str type given: {type(response_data)}')
-
         if isinstance(response_data, str):
             return {'response_text': response_data}
 
@@ -126,69 +122,9 @@ class APIResource(BaseAPI):
         return self.convert_to_myvr_object(data)
 
     def convert_to_myvr_object(self, response_data: dict) -> Union[MyVRObject, MyVRCollection]:
-        object_cls = MyVRCollection if 'results' in response_data else MyVRObject
+        if isinstance(response_data, list) or 'results' in response_data:
+            object_cls = MyVRCollection
+        else:
+            object_cls = MyVRObject
+
         return object_cls(response_data, self.model_name)
-
-    def retrieve(self, key: str, **data) -> MyVRObject:
-        """
-        Base method to perform GET request
-        :param key: str, The primary key of the instance
-        :param data: dict, Request's body, default None
-        :return: MyVRObject instance with given key or error information
-        """
-
-        return self.request('GET', self.get_key_url(key), data=data)
-
-
-class CreateMixin(APIResource):
-    def create(self, **data) -> MyVRObject:
-        """
-        Base method to perform POST request
-        :param data: dict, Request's body, default None
-        :return: Created MyVRObject instance or error information
-        """
-
-        return self.request('POST', self.base_url, data=data)
-
-
-class UpdateMixin(APIResource):
-    def update(self, key: str, **data) -> MyVRObject:
-        """
-        Base method to perform PUT request
-        :param key: str, The primary key of the instance
-        :param data: dict, Request's body, default None
-        :return: MyVRObject instance with given key or error information
-        """
-
-        return self.request('PUT', self.get_key_url(key), data=data)
-
-
-class DeleteMixin(APIResource):
-    def delete(self, key: str, **data) -> MyVRObject:
-        """
-        Base method to perform GET request
-        :param key: str, The primary key of the instance
-        :param data: dict, Request's body, default None
-        :return: Empty MyVRObject instance or error information
-        """
-
-        return self.request('DELETE', self.get_key_url(key), data=data)
-
-
-class ListMixin(APIResource):
-    def list(self, limit: int = 0, offset: int = 0, **data) -> MyVRCollection:
-        """
-        Base method to perform GET request for many data points
-        :param limit: int, Pagination parameter. The limit of the query, default 0
-        :param offset: int, Pagination parameter. The offset of the query, default 0
-        :param data: dict, Request's body, default None
-        :return: List of MyVRObject instances or error information
-        """
-
-        if limit not in data:
-            data['limit'] = limit
-
-        if offset not in data:
-            data['offset'] = offset
-
-        return self.request('GET', self.base_url, data=data)

@@ -1,13 +1,12 @@
 import json
 
-import requests_mock
 import pytest
+import requests_mock
 
-from myvr.api.abstract import CreateMixin, DeleteMixin, ListMixin, UpdateMixin
+from myvr import MyVRAPIException
+from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources import Property
-from myvr import MyVRAPIException
-
 from tests.conftest import API_KEY, API_URL, API_VERSION
 
 
@@ -18,7 +17,7 @@ class TestPropertyResource:
 
     def test_base_actions(self):
         expected_actions = {
-            CreateMixin, UpdateMixin, DeleteMixin, ListMixin
+            CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin
         }
         actual_actions = set(Property.__mro__).intersection(expected_actions)
 

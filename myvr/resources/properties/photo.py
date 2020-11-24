@@ -1,6 +1,6 @@
-from myvr.api.abstract import ListMixin, CreateMixin, UpdateMixin, DeleteMixin
+from myvr.api.mixins import ModelViewSet
 
 
-class Photo(CreateMixin, UpdateMixin, DeleteMixin, ListMixin):
+class Photo(ModelViewSet):
     resource_url = '/photos/'
     model_name = 'Photo'
