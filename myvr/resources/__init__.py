@@ -5,5 +5,6 @@ from .properties import (
     DailyAvailability,
     Photo,
     Property,
-    Room
+    Room,
+    Amenity
 )
