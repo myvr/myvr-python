@@ -107,11 +107,7 @@ class APIResource(BaseAPI):
         return self.convert_to_myvr_object(data)
 
     def convert_to_myvr_object(self, response_data: dict) -> Union[MyVRObject, MyVRCollection]:
-        if 'results' in response_data:
-            object_cls = MyVRCollection
-        else:
-            object_cls = MyVRObject
-
+        object_cls = MyVRCollection if 'results' in response_data else MyVRObject
         return object_cls(response_data, self.model_name)
 
     def retrieve(self, key: str, **data):
