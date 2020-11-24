@@ -1,9 +1,9 @@
 # flake8: noqa
 
+from .amenity import Amenity
 from .calendar_event import CalendarEvent
 from .daily_availability import DailyAvailability
 from .photo import Photo
 from .property import Property
-from .room import Room
-from .amenity import Amenity
 from .property_hierarchy import PropertyHierarchy
+from .room import Room
