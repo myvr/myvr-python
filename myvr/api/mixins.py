@@ -95,3 +95,4 @@ class ModelViewSet(CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMix
         - delete
         - list
     """
+    pass
