@@ -1,4 +1,6 @@
-from .property import Property
-from .photo import Photo
-from .room import Room
 # flake8: noqa
+
+from .calendar_event import CalendarEvent
+from .photo import Photo
+from .property import Property
+from .room import Room
