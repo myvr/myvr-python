@@ -1,3 +1,2 @@
+from .properties import Photo, Property, Room
 # flake8: noqa
-
-from .properties import Property, Photo
