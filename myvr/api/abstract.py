@@ -1,23 +1,30 @@
-from typing import ClassVar, Union
-import requests
 import json
+
+from typing import ClassVar, Union
+
+import requests
 
 from myvr.api.myvr_objects import MyVRCollection, MyVRObject
 from myvr.api.exceptions import MyVRAPIException, ResourceUrlError
 
 
 class BaseAPI:
-    def __init__(self, api_key: str, api_url: str, version: str):
+    def __init__(
+            self,
+            api_key: str,
+            api_url: str,
+            version: str
+    ):
         self._api_key = api_key
         self._api_url = api_url
         self._version = version
 
     @property
-    def api_url(self):
+    def api_url(self) -> str:
         return self._api_url
 
     @property
-    def version(self):
+    def version(self) -> str:
         return self._version
 
 
@@ -50,27 +57,25 @@ class APIResource(BaseAPI):
 
         super(APIResource, self).__init__(api_key, api_url, version)
 
-
     @property
-    def base_url(self):
+    def base_url(self) -> str:
         return f"{self.api_url}{self.version}{self.resource_url}"
 
     @property
-    def auth_header(self):
-        """Returns auth header"""
+    def auth_header(self) -> dict:
         return {'Authorization': f'Bearer {self._api_key}'}
 
-    def get_key_url(self, key: str):
+    def get_key_url(self, key: str) -> str:
         return f"{self.base_url}{key}/"
 
-    def get_headers(self, headers: dict):
+    def get_headers(self, headers: dict) -> dict:
         if 'Authorization' not in headers:
             headers.update(self.auth_header)
 
         return headers
 
     @staticmethod
-    def _verify_response(response: requests.Response):
+    def _verify_response(response: requests.Response) -> dict:
         """
         Method to check response on errors and multiple objects containing
         :param response: requests.Response, Response instance
@@ -83,15 +88,29 @@ class APIResource(BaseAPI):
             response_data = response.text
 
         if not response.ok:
-            raise MyVRAPIException(data={'error': response.reason, 'method': response.request.method,
-                                         'status_code': response.status_code, 'message': response_data})
+            raise MyVRAPIException(
+                data={
+                    'error': response.reason,
+                    'method': response.request.method,
+                    'status_code': response.status_code,
+                    'message': response_data,
+                })
 
         if not isinstance(response_data, (dict, str)):
             raise TypeError(f'Response should be dict or str type given: {type(response_data)}')
 
-        return {'response_text': response_data} if isinstance(response_data, str) else response_data
+        if isinstance(response_data, str):
+            return {'response_text': response_data}
 
-    def request(self, method: str, url: str, headers=None, data=None) -> Union[MyVRObject, MyVRCollection]:
+        return response_data
+
+    def request(
+            self,
+            method: str,
+            url: str,
+            headers: dict = None,
+            data: dict = None
+    ) -> Union[MyVRObject, MyVRCollection]:
         """
         Performs request to the API.
         :param method: str, HTTP method name in uppercase
@@ -110,7 +129,7 @@ class APIResource(BaseAPI):
         object_cls = MyVRCollection if 'results' in response_data else MyVRObject
         return object_cls(response_data, self.model_name)
 
-    def retrieve(self, key: str, **data):
+    def retrieve(self, key: str, **data) -> MyVRObject:
         """
         Base method to perform GET request
         :param key: str, The primary key of the instance
@@ -122,8 +141,7 @@ class APIResource(BaseAPI):
 
 
 class CreateMixin(APIResource):
-
-    def create(self, **data):
+    def create(self, **data) -> MyVRObject:
         """
         Base method to perform POST request
         :param data: dict, Request's body, default None
@@ -134,8 +152,7 @@ class CreateMixin(APIResource):
 
 
 class UpdateMixin(APIResource):
-
-    def update(self, key: str, **data):
+    def update(self, key: str, **data) -> MyVRObject:
         """
         Base method to perform PUT request
         :param key: str, The primary key of the instance
@@ -147,8 +164,7 @@ class UpdateMixin(APIResource):
 
 
 class DeleteMixin(APIResource):
-
-    def delete(self, key: str, **data):
+    def delete(self, key: str, **data) -> MyVRObject:
         """
         Base method to perform GET request
         :param key: str, The primary key of the instance
@@ -160,8 +176,7 @@ class DeleteMixin(APIResource):
 
 
 class ListMixin(APIResource):
-
-    def list(self, limit: int = 0, offset: int = 0, **data):
+    def list(self, limit: int = 0, offset: int = 0, **data) -> MyVRCollection:
         """
         Base method to perform GET request for many data points
         :param limit: int, Pagination parameter. The limit of the query, default 0

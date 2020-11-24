@@ -7,7 +7,7 @@ class ResourceUrlError(MyVRException):
     def __str__(self):
         return 'API url must end with /'
 
-      
+
 class MyVRAPIException(Exception):
     """Wrapper to express myvr.com API exception"""
 
