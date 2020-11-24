@@ -84,3 +84,14 @@ class ListMixin(APIResource):
         url = f'{self.base_url}?{query}'
 
         return self.request('GET', url, data=data)
+
+
+class ModelViewSet(CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin):
+    """
+        Generic with implementation of all base actions:
+        - create
+        - read
+        - update
+        - delete
+        - list
+    """

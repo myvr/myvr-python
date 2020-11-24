@@ -1,6 +1,6 @@
-from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
+from myvr.api.mixins import ModelViewSet
 
 
-class Room(CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin):
+class Room(ModelViewSet):
     resource_url = '/rooms/'
     model_name = 'Room'
