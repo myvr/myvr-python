@@ -141,6 +141,7 @@ class TestApiResource:
             with pytest.raises(TypeError):
                 self.resource.request('GET', self.resource.base_url)
 
+
 class TestCreateMixin:
     class MyResource(CreateMixin):
         model_name = 'MyResource'
