@@ -1,5 +1,5 @@
 from myvr.api.base import BaseAPI
-from myvr.resources import CalendarEvent, DailyAvailability, Photo, Property, Room, Amenity
+from myvr.resources import (Amenity, CalendarEvent, DailyAvailability, Photo, Property, Quote, Room)
 
 
 class MyVRClient(BaseAPI):
@@ -20,3 +20,5 @@ class MyVRClient(BaseAPI):
         self.Room = Room(api_key, api_url, version)
         self.Amenity = Amenity(api_key, api_url, version)
 
+        # Bookings
+        self.Quote = Quote(api_key, api_url, version)
