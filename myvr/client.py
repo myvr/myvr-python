@@ -1,5 +1,6 @@
 from myvr.api.base import BaseAPI
 from myvr.resources import CalendarEvent, DailyAvailability, Photo, Property, Room, Amenity
+from myvr.resources import PropertyHierarchy
 
 
 class MyVRClient(BaseAPI):
@@ -19,4 +20,5 @@ class MyVRClient(BaseAPI):
         self.Photo = Photo(api_key, api_url, version)
         self.Room = Room(api_key, api_url, version)
         self.Amenity = Amenity(api_key, api_url, version)
+        self.PropertyHierarchy = PropertyHierarchy(api_key, api_url, version)
 

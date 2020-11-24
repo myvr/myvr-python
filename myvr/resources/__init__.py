@@ -6,5 +6,6 @@ from .properties import (
     Photo,
     Property,
     Room,
-    Amenity
+    Amenity,
+    PropertyHierarchy
 )
