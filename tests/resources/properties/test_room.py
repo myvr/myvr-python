@@ -1,5 +1,6 @@
 from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.resources import Room
+from tests.utils import get_common_actions
 
 
 class TestRoomResource:
@@ -11,6 +12,6 @@ class TestRoomResource:
         expected_actions = {
             CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin
         }
-        actual_actions = set(Room.__mro__).intersection(expected_actions)
+        actual_actions = get_common_actions(Room, expected_actions)
 
         assert len(actual_actions) == len(expected_actions)

@@ -1,12 +1,11 @@
 import json
 
 import pytest
-import requests_mock
 
 from myvr.api.base import APIResource
 from myvr.api.exceptions import MyVRAPIException, ResourceUrlError
 from myvr.api.myvr_objects import MyVRCollection, MyVRObject
-from tests.conftest import API_KEY, API_URL, API_VERSION
+from tests.utils import API_KEY, API_URL, API_VERSION
 
 
 class TestApiResource:
@@ -73,39 +72,36 @@ class TestApiResource:
 
             MyResource('api_key', 'api_url/', 'v1')
 
-    def test_make_bad_request(self, api_url):
+    def test_make_bad_request(self, requests_mock, api_url):
         actual_response = {
             'key': ['Field is required']
         }
         status_code = 400
-        with requests_mock.Mocker() as m:
-            resource_url = f"{api_url}{self.MyResource.resource_url}"
+        resource_url = f"{api_url}{self.MyResource.resource_url}"
 
-            m.post(
-                resource_url,
-                text=json.dumps(actual_response),
-                status_code=status_code
-            )
-            with pytest.raises(MyVRAPIException) as e:
-                self.resource.request('POST', self.resource.base_url)
+        requests_mock.post(
+            resource_url,
+            text=json.dumps(actual_response),
+            status_code=status_code
+        )
+        with pytest.raises(MyVRAPIException) as e:
+            self.resource.request('POST', self.resource.base_url)
 
-            error_data = e.value.data
-            assert error_data['status_code'] == status_code
-            assert error_data['message'] == actual_response
+        error_data = e.value.data
+        assert error_data['status_code'] == status_code
+        assert error_data['message'] == actual_response
 
-    def test_string_response(self, api_url):
+    def test_string_response(self, requests_mock, api_url):
         text = 'string'
-        with requests_mock.Mocker() as m:
-            resource_url = f"{api_url}{self.MyResource.resource_url}"
+        resource_url = f"{api_url}{self.MyResource.resource_url}"
 
-            m.get(resource_url, text=text)
-            response = self.resource.request('GET', self.resource.base_url)
-            assert response.response_text == text
+        requests_mock.get(resource_url, text=text)
+        response = self.resource.request('GET', self.resource.base_url)
+        assert response.response_text == text
 
-    def test_list_response(self, api_url):
-        with requests_mock.Mocker() as m:
-            resource_url = f"{api_url}{self.MyResource.resource_url}"
+    def test_list_response(self, requests_mock, api_url):
+        resource_url = f"{api_url}{self.MyResource.resource_url}"
 
-            m.get(resource_url, text='[]')
-            response = self.resource.request('GET', self.resource.base_url)
-            assert isinstance(response, list)
+        requests_mock.get(resource_url, text='[]')
+        response = self.resource.request('GET', self.resource.base_url)
+        assert isinstance(response, list)

@@ -129,7 +129,7 @@ class APIResource(BaseAPI):
 
         return object_cls(response_data, self.model_name)
 
-    def action(self, key: str, path: str, **data) -> MyVRObject:
+    def object_action(self, key: str, path: str, **data) -> MyVRObject:
         """
         Performs object extra action
         :param key: Object's key
@@ -139,4 +139,15 @@ class APIResource(BaseAPI):
         """
 
         url = self.get_key_url(key) + path
+        return self.request('POST', url, data=data)
+
+    def action(self, path: str, **data) -> MyVRObject:
+        """
+        Performs extra action
+        :param path: action path
+        :param data: dict with parameters
+        :return: MyVRObject
+        """
+
+        url = self.base_url + path
         return self.request('POST', url, data=data)
