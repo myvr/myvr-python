@@ -16,5 +16,6 @@ from .properties import (
 )
 
 from .pricing import (
-    Rate
+    Rate,
+    Fee
 )
