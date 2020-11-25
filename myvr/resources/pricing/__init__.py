@@ -2,3 +2,5 @@
 
 from .rate import Rate
 from .fee import Fee
+from .fee_plan import FeePlan
+
