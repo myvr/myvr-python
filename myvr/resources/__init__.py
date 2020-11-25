@@ -1,6 +1,10 @@
 # flake8: noqa
 
-from .bookings import Quote
+from .bookings import (
+    Quote,
+    Reservation,
+)
+
 from .properties import (
     Amenity,
     CalendarEvent,
