@@ -1,3 +1,6 @@
+from functools import partialmethod
+
+from myvr.api.base import APIResource
 from myvr.api.mixins import ModelViewSet
 
 
@@ -5,6 +8,4 @@ class Property(ModelViewSet):
     resource_url = '/properties/'
     model_name = 'Property'
 
-    def reset_rate(self, key: str, **kwargs):
-        url = self.get_key_url(key) + 'rates/'
-        return self.request('PUT', url, data=kwargs)
+    reset_rate = partialmethod(APIResource.object_action, path='rates/')
