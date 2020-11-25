@@ -1,9 +1,14 @@
 # flake8: noqa
 
-from .bookings import (PaymentMethod, Quote, Reservation)
-from .pricing import Fee, Rate
+from .bookings import (
+    Payment,
+    PaymentMethod,
+    Quote,
+    Reservation,
+)
 from .pricing import (
-    Rate
+    Fee,
+    Rate,
 )
 from .properties import (
     Amenity,
