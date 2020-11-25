@@ -14,3 +14,7 @@ from .properties import (
     PropertyHierarchy,
     Room,
 )
+
+from .pricing import (
+    Rate
+)
