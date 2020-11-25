@@ -4,6 +4,7 @@ from .bookings import (
     Expense,
     Payment,
     PaymentMethod,
+    Promotion,
     Quote,
     Refund,
     Reservation,

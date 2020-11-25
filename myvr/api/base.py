@@ -117,7 +117,7 @@ class APIResource(BaseAPI):
         """
 
         headers = self.get_headers(headers if headers else {})
-        response = requests.request(method, url, headers=headers, data=data)
+        response = requests.request(method, url, headers=headers, json=data)
         data = self._verify_response(response)
         return self.convert_to_myvr_object(data)
 
