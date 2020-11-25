@@ -1,6 +1,5 @@
 from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.resources import Fee
-from tests.utils import get_common_actions
 
 
 class TestFeeResource:
