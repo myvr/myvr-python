@@ -1,4 +1,4 @@
 # flake8: noqa
 
-from .rate import Rate
 from .fee import Fee
+from .rate import Rate

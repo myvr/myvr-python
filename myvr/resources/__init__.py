@@ -1,10 +1,10 @@
 # flake8: noqa
 
-from .bookings import (
-    Quote,
-    Reservation,
+from .bookings import (PaymentMethod, Quote, Reservation)
+from .pricing import Fee, Rate
+from .pricing import (
+    Rate
 )
-
 from .properties import (
     Amenity,
     CalendarEvent,
@@ -13,9 +13,4 @@ from .properties import (
     Property,
     PropertyHierarchy,
     Room,
-)
-
-from .pricing import (
-    Rate,
-    Fee
 )

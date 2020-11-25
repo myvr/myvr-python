@@ -1,8 +1,17 @@
 from myvr.api.base import BaseAPI
 from myvr.resources import (
-    Amenity, CalendarEvent, DailyAvailability,
-    Photo, Property, PropertyHierarchy, Quote, Reservation, Room,
-    Rate, Fee
+    Amenity,
+    CalendarEvent,
+    DailyAvailability,
+    Fee,
+    PaymentMethod,
+    Photo,
+    Property,
+    PropertyHierarchy,
+    Quote,
+    Rate,
+    Reservation,
+    Room,
 )
 
 
@@ -27,6 +36,7 @@ class MyVRClient(BaseAPI):
 
         # Bookings
         self.Quote = Quote(api_key, api_url, version)
+        self.PaymentMethod = PaymentMethod(api_key, api_url, version)
         self.Reservation = Reservation(api_key, api_url, version)
 
         # Pricing
