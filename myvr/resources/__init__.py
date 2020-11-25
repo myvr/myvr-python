@@ -4,9 +4,10 @@ from .bookings import (
     Payment,
     PaymentMethod,
     Quote,
+    Refund,
     Reservation,
 )
-
+from .pricing import (Fee, FeePlan, Rate)
 from .properties import (
     Amenity,
     CalendarEvent,
@@ -15,10 +16,4 @@ from .properties import (
     Property,
     PropertyHierarchy,
     Room,
-)
-
-from .pricing import (
-    Rate,
-    Fee,
-    FeePlan
 )

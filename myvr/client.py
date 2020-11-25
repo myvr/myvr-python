@@ -11,9 +11,9 @@ from myvr.resources import (
     PropertyHierarchy,
     Quote,
     Rate,
+    Refund,
     Reservation,
-    Room,
-    FeePlan
+    Room
 )
 
 
@@ -38,6 +38,9 @@ class MyVRClient(BaseAPI):
 
         # Bookings
         self.Quote = Quote(api_key, api_url, version)
+        self.Payment = Payment(api_key, api_url, version)
+        self.PaymentMethod = PaymentMethod(api_key, api_url, version)
+        self.Refund = Refund(api_key, api_url, version)
         self.Reservation = Reservation(api_key, api_url, version)
 
         # Pricing
