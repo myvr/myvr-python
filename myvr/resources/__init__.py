@@ -7,10 +7,7 @@ from .bookings import (
     Refund,
     Reservation,
 )
-from .pricing import (
-    Fee,
-    Rate,
-)
+from .pricing import (Fee, FeePlan, Rate)
 from .properties import (
     Amenity,
     CalendarEvent,

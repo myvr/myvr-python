@@ -13,7 +13,7 @@ from myvr.resources import (
     Rate,
     Refund,
     Reservation,
-    Room,
+    Room
 )
 
 
