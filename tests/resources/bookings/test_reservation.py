@@ -3,7 +3,7 @@ import json
 from myvr.api.mixins import CreateMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources.bookings.reservation import Reservation
-from tests.conftest import API_KEY, API_URL, API_VERSION
+from tests.utils import API_KEY, API_URL, API_VERSION, get_common_actions
 
 
 class TestReservation:
@@ -17,7 +17,7 @@ class TestReservation:
 
     def test_base_actions(self):
         expected_actions = {CreateMixin, RetrieveMixin, UpdateMixin, ListMixin}
-        actual_actions = set(Reservation.__mro__).intersection(expected_actions)
+        actual_actions = get_common_actions(Reservation, expected_actions)
 
         assert len(actual_actions) == len(expected_actions)
 

@@ -1,5 +1,6 @@
-from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, UpdateMixin, RetrieveMixin
+from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.resources import Amenity
+from tests.utils import get_common_actions
 
 
 class TestAmenityResource:
@@ -11,6 +12,6 @@ class TestAmenityResource:
         expected_actions = {
             CreateMixin, UpdateMixin, DeleteMixin, ListMixin, RetrieveMixin
         }
-        actual_actions = set(Amenity.__mro__).intersection(expected_actions)
+        actual_actions = get_common_actions(Amenity, expected_actions)
 
         assert len(actual_actions) == len(expected_actions)

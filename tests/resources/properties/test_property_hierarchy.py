@@ -1,5 +1,6 @@
 from myvr.api.mixins import ListMixin
 from myvr.resources import PropertyHierarchy
+from tests.utils import get_common_actions
 
 
 class TestPropertyHierarchyResource:
@@ -9,6 +10,6 @@ class TestPropertyHierarchyResource:
 
     def test_base_actions(self):
         expected_actions = {ListMixin}
-        actual_actions = set(PropertyHierarchy.__mro__).intersection(expected_actions)
+        actual_actions = get_common_actions(PropertyHierarchy, expected_actions)
 
         assert len(actual_actions) == len(expected_actions)

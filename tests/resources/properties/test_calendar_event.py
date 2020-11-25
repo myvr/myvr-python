@@ -1,5 +1,6 @@
 from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.resources.properties.calendar_event import CalendarEvent
+from tests.utils import get_common_actions
 
 
 class TestCalendarEvent:
@@ -11,6 +12,6 @@ class TestCalendarEvent:
         expected_actions = {
             CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin
         }
-        actual_actions = set(CalendarEvent.__mro__).intersection(expected_actions)
+        actual_actions = get_common_actions(CalendarEvent, expected_actions)
 
         assert len(actual_actions) == len(expected_actions)

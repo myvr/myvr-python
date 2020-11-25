@@ -1,8 +1,6 @@
 import pytest
 
-API_URL = 'http://example.com/'
-API_KEY = 'test_api_key'
-API_VERSION = 'v1'
+from tests.utils import API_URL, API_VERSION
 
 
 @pytest.fixture
