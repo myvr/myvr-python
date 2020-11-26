@@ -1,6 +1,6 @@
 from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.resources import Amenity
-from tests.utils import get_common_actions
+from tests.utils import get_resource_actions, sort_actions
 
 
 class TestAmenityResource:
@@ -9,9 +9,9 @@ class TestAmenityResource:
         assert Amenity.model_name == 'Amenity'
 
     def test_base_actions(self):
-        expected_actions = {
+        expected_actions = sort_actions([
             CreateMixin, UpdateMixin, DeleteMixin, ListMixin, RetrieveMixin
-        }
-        actual_actions = get_common_actions(Amenity, expected_actions)
+        ])
+        actual_actions = get_resource_actions(Amenity)
 
-        assert len(actual_actions) == len(expected_actions)
+        assert actual_actions == expected_actions

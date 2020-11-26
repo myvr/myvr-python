@@ -1,6 +1,6 @@
 from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.resources import Photo
-from tests.utils import get_common_actions
+from tests.utils import get_resource_actions, sort_actions
 
 
 class TestPhotoResource:
@@ -9,9 +9,9 @@ class TestPhotoResource:
         assert Photo.model_name == 'Photo'
 
     def test_base_actions(self):
-        expected_actions = {
+        expected_actions = sort_actions([
             CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin
-        }
-        actual_actions = get_common_actions(Photo, expected_actions)
+        ])
+        actual_actions = get_resource_actions(Photo)
 
-        assert len(actual_actions) == len(expected_actions)
+        assert actual_actions == expected_actions
