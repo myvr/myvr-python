@@ -8,6 +8,7 @@ from myvr.resources import (
     DailyAvailability,
     Expense,
     Fee,
+    Inquiry,
     Payment,
     PaymentMethod,
     Photo,
@@ -58,3 +59,4 @@ class MyVRClient(BaseAPI):
         # CRM
         self.Contact = Contact(api_key, api_url, version)
         self.ContactTag = ContactTag(api_key, api_url, version)
+        self.Inquiry = Inquiry(api_key, api_url, version)

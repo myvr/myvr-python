@@ -13,8 +13,14 @@ from .bookings import (
 from .crm import (
     Contact,
     ContactTag,
+    Inquiry,
 )
-from .pricing import (Fee, FeePlan, Rate, RatePlan)
+from .pricing import (
+    Fee,
+    FeePlan,
+    Rate,
+    RatePlan,
+)
 from .properties import (
     Amenity,
     CalendarEvent,
