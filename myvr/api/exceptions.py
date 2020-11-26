@@ -1,3 +1,10 @@
+__all__ = [
+    'MyVRException',
+    'ResourceUrlError',
+    'MyVRAPIException',
+]
+
+
 class MyVRException(Exception):
     """Wrapper to express our own exception"""
     pass
