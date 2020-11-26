@@ -14,10 +14,10 @@ def get_common_actions(resource: Type[APIResource], actions: Set[Type[APIResourc
     return set(resource.__mro__).intersection(actions)
 
 
-ResourceType = TypeVar('ResourceType', bound=APIResource)
+Resource = TypeVar('Resource', bound=APIResource)
 
 
-def init_resource(resource: Type[APIResource], *args) -> ResourceType:
+def init_resource(resource: Type[APIResource], *args) -> Resource:
     params = RESOURCE_PARAMS
     if args:
         params = args
