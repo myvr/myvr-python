@@ -1,6 +1,6 @@
 from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.resources import Rate
-from tests.utils import get_common_actions
+from tests.utils import get_resource_actions, sort_actions
 
 
 class TestRateResource:
@@ -9,9 +9,9 @@ class TestRateResource:
         assert Rate.model_name == 'Rate'
 
     def test_base_actions(self):
-        expected_actions = {
+        expected_actions = sort_actions([
             CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin
-        }
-        actual_actions = get_common_actions(Rate, expected_actions)
+        ])
+        actual_actions = get_resource_actions(Rate)
 
-        assert len(actual_actions) == len(expected_actions)
+        assert actual_actions == expected_actions

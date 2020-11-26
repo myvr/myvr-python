@@ -3,7 +3,7 @@ import json
 from myvr.api.mixins import CreateMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources.bookings.reservation import Reservation
-from tests.utils import API_KEY, API_URL, API_VERSION, get_common_actions
+from tests.utils import API_KEY, API_URL, API_VERSION, get_resource_actions, sort_actions
 
 
 class TestReservation:
@@ -16,10 +16,10 @@ class TestReservation:
         assert Reservation.model_name == 'Reservation'
 
     def test_base_actions(self):
-        expected_actions = {CreateMixin, RetrieveMixin, UpdateMixin, ListMixin}
-        actual_actions = get_common_actions(Reservation, expected_actions)
+        expected_actions = sort_actions([CreateMixin, RetrieveMixin, UpdateMixin, ListMixin])
+        actual_actions = get_resource_actions(Reservation)
 
-        assert len(actual_actions) == len(expected_actions)
+        assert actual_actions == expected_actions
 
     def test_update(self, requests_mock, api_url, resource_data):
         resource_url = api_url + Reservation.resource_url + resource_data['key'] + '/'
