@@ -1,6 +1,7 @@
-from typing import Set, Type, TypeVar
+from typing import List, Type, TypeVar
 
 from myvr.api.base import APIResource
+from myvr.api.mixins import ModelViewSet
 
 API_URL = 'http://example.com/'
 API_KEY = 'test_api_key'
@@ -9,17 +10,26 @@ API_VERSION = 'v1'
 API_SOURCE_URL = f'{API_URL}{API_VERSION}'
 RESOURCE_PARAMS = (API_KEY, API_URL, API_VERSION)
 
-
-def get_common_actions(resource: Type[APIResource], actions: Set[Type[APIResource]]) -> Set[type]:
-    return set(resource.__mro__).intersection(actions)
-
-
-Resource = TypeVar('Resource', bound=APIResource)
+ResourceClass = Type[APIResource]
+ResourceInstance = TypeVar('ResourceInstance', bound=APIResource)
 
 
-def init_resource(resource: Type[APIResource], *args) -> Resource:
+def get_resource_actions(resource: ResourceClass) -> List[ResourceClass]:
+    exclude = [APIResource, resource, ModelViewSet]
+    actions = [
+        cls for cls in resource.__mro__
+        if issubclass(cls, APIResource) and cls not in exclude
+    ]
+    return sort_actions(actions)
+
+
+def init_resource(resource: ResourceClass, *args) -> ResourceInstance:
     params = RESOURCE_PARAMS
     if args:
         params = args
 
     return resource(*params)
+
+  
+  def sort_actions(actions: List[ResourceClass]) -> List[ResourceClass]:
+    return sorted(actions, key=lambda r: r.__name__)

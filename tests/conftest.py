@@ -1,12 +1,5 @@
 import pytest
 
-from tests.utils import API_URL, API_VERSION
-
-
-@pytest.fixture
-def api_url():
-    return f'{API_URL}{API_VERSION}'
-
 
 @pytest.fixture
 def resource_data():

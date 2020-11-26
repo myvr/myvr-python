@@ -15,7 +15,7 @@ try:
     prop = client.Property.delete(key=prop.key)
     print('delete', 'error:', prop.error)
 
-except myvr.MyVRAPIException as e:
+except myvr.exceptions.MyVRAPIException as e:
     print(e.data)
 
 prop = client.Property.list()

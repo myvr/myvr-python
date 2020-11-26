@@ -5,7 +5,7 @@ import pytest
 from myvr.api.base import APIResource
 from myvr.api.exceptions import MyVRAPIException, ResourceUrlError
 from myvr.api.myvr_objects import MyVRCollection, MyVRObject
-from tests.utils import API_KEY, API_URL, API_VERSION
+from tests.utils import API_KEY, API_SOURCE_URL, API_URL, API_VERSION
 
 
 class TestApiResource:
@@ -72,12 +72,12 @@ class TestApiResource:
 
             MyResource('api_key', 'api_url/', 'v1')
 
-    def test_make_bad_request(self, requests_mock, api_url):
+    def test_make_bad_request(self, requests_mock):
         actual_response = {
             'key': ['Field is required']
         }
         status_code = 400
-        resource_url = f"{api_url}{self.MyResource.resource_url}"
+        resource_url = API_SOURCE_URL + self.MyResource.resource_url
 
         requests_mock.post(
             resource_url,
@@ -91,16 +91,16 @@ class TestApiResource:
         assert error_data['status_code'] == status_code
         assert error_data['message'] == actual_response
 
-    def test_string_response(self, requests_mock, api_url):
+    def test_string_response(self, requests_mock):
         text = 'string'
-        resource_url = f"{api_url}{self.MyResource.resource_url}"
+        resource_url = API_SOURCE_URL + self.MyResource.resource_url
 
         requests_mock.get(resource_url, text=text)
         response = self.resource.request('GET', self.resource.base_url)
         assert response.response_text == text
 
-    def test_list_response(self, requests_mock, api_url):
-        resource_url = f"{api_url}{self.MyResource.resource_url}"
+    def test_list_response(self, requests_mock):
+        resource_url = API_SOURCE_URL + self.MyResource.resource_url
 
         requests_mock.get(resource_url, text='[]')
         response = self.resource.request('GET', self.resource.base_url)
