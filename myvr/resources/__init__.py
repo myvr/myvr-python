@@ -5,10 +5,15 @@ from .bookings import (
     Expense,
     Payment,
     PaymentMethod,
+    Promotion,
     Quote,
+    Refund,
     Reservation,
 )
-
+from .crm import (
+    Contact,
+)
+from .pricing import (Fee, FeePlan, Rate, RatePlan)
 from .properties import (
     Amenity,
     CalendarEvent,
@@ -17,11 +22,4 @@ from .properties import (
     Property,
     PropertyHierarchy,
     Room,
-)
-
-from .pricing import (
-    Rate,
-    Fee,
-    FeePlan,
-    RatePlan
 )

@@ -3,6 +3,7 @@ from myvr.resources import (
     Amenity,
     CalendarEvent,
     CancellationReason,
+    Contact,
     DailyAvailability,
     Expense,
     Fee,
@@ -52,3 +53,6 @@ class MyVRClient(BaseAPI):
         self.Rate = Rate(api_key, api_url, version)
         self.Fee = Fee(api_key, api_url, version)
         self.FeePlan = Fee(api_key, api_url, version)
+
+        # CRM
+        self.Contact = Contact(api_key, api_url, version)
