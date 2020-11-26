@@ -2,18 +2,21 @@ from myvr.api.base import BaseAPI
 from myvr.resources import (
     Amenity,
     CalendarEvent,
+    CancellationReason,
     DailyAvailability,
+    Expense,
     Fee,
     Payment,
     PaymentMethod,
     Photo,
+    Promotion,
     Property,
     PropertyHierarchy,
     Quote,
     Rate,
+    Refund,
     Reservation,
     Room,
-    FeePlan
 )
 
 
@@ -27,7 +30,6 @@ class MyVRClient(BaseAPI):
         super(MyVRClient, self).__init__(api_key, api_url, version)
 
         # Properties
-
         self.CalendarEvent = CalendarEvent(api_key, api_url, version)
         self.DailyAvailability = DailyAvailability(api_key, api_url, version)
         self.Property = Property(api_key, api_url, version)
@@ -37,7 +39,13 @@ class MyVRClient(BaseAPI):
         self.PropertyHierarchy = PropertyHierarchy(api_key, api_url, version)
 
         # Bookings
+        self.CancellationReason = CancellationReason(api_key, api_url, version)
+        self.Expense = Expense(api_key, api_url, version)
         self.Quote = Quote(api_key, api_url, version)
+        self.Payment = Payment(api_key, api_url, version)
+        self.PaymentMethod = PaymentMethod(api_key, api_url, version)
+        self.Promotion = Promotion(api_key, api_url, version)
+        self.Refund = Refund(api_key, api_url, version)
         self.Reservation = Reservation(api_key, api_url, version)
 
         # Pricing

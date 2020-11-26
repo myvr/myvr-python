@@ -21,6 +21,14 @@ class TestReservation:
 
         assert len(actual_actions) == len(expected_actions)
 
+    def test_update(self, requests_mock, api_url, resource_data):
+        resource_url = api_url + Reservation.resource_url + resource_data['key'] + '/'
+
+        requests_mock.patch(resource_url, text=json.dumps(resource_data))
+        response = self.resource.update(resource_data['key'])
+        assert isinstance(response, MyVRObject)
+        assert response.key == resource_data['key']
+
     def test_create_from_quote(self, requests_mock, api_url, resource_data):
         resource_url = f'{api_url}{Reservation.resource_url}'
 

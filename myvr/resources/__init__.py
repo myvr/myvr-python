@@ -1,6 +1,8 @@
 # flake8: noqa
 
 from .bookings import (
+    CancellationReason,
+    Expense,
     Payment,
     PaymentMethod,
     Quote,

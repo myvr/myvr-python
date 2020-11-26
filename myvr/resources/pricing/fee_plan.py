@@ -1,4 +1,4 @@
-from myvr.api.mixins import RetrieveMixin, ListMixin
+from myvr.api.mixins import ListMixin, RetrieveMixin
 
 
 class FeePlan(RetrieveMixin, ListMixin):
