@@ -30,6 +30,6 @@ def init_resource(resource: ResourceClass, *args) -> ResourceInstance:
 
     return resource(*params)
 
-  
-  def sort_actions(actions: List[ResourceClass]) -> List[ResourceClass]:
+
+def sort_actions(actions: List[ResourceClass]) -> List[ResourceClass]:
     return sorted(actions, key=lambda r: r.__name__)
