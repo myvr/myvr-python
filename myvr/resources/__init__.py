@@ -15,6 +15,7 @@ from .crm import (
     ContactTag,
     Inquiry,
     InquiryMessage,
+    MessageTemplate,
 )
 from .pricing import (
     Fee,

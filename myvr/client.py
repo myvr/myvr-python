@@ -10,6 +10,7 @@ from myvr.resources import (
     Fee,
     Inquiry,
     InquiryMessage,
+    MessageTemplate,
     Payment,
     PaymentMethod,
     Photo,
@@ -62,3 +63,4 @@ class MyVRClient(BaseAPI):
         self.ContactTag = ContactTag(api_key, api_url, version)
         self.Inquiry = Inquiry(api_key, api_url, version)
         self.InquiryMessage = InquiryMessage(api_key, api_url, version)
+        self.MessageTemplate = MessageTemplate(api_key, api_url, version)
