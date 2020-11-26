@@ -3,13 +3,13 @@ import json
 from myvr.api.mixins import CreateMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources.bookings.reservation import Reservation
-from tests.utils import API_KEY, API_URL, API_VERSION, get_resource_actions, sort_actions
+from tests.utils import get_resource_actions, init_resource, sort_actions
 
 
 class TestReservation:
     @property
-    def resource(self):
-        return Reservation(API_KEY, API_URL, API_VERSION)
+    def resource(self) -> Reservation:
+        return init_resource(Reservation)
 
     def test_settings(self):
         assert Reservation.resource_url == '/reservations/'

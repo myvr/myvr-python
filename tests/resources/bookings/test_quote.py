@@ -3,7 +3,7 @@ import json
 from myvr.api.mixins import CreateMixin, RetrieveMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources.bookings.quote import Quote
-from tests.utils import API_KEY, API_URL, API_VERSION, get_resource_actions, sort_actions
+from tests.utils import get_resource_actions, init_resource, sort_actions
 
 
 class TestQuote:
@@ -21,8 +21,7 @@ class TestQuote:
         resource_url = f'{api_url}{Quote.resource_url}' + 'custom/'
 
         requests_mock.post(resource_url, text=json.dumps(resource_data))
-        resource = Quote(API_KEY, API_URL, API_VERSION)
-        response = resource.create_custom()
+        response = init_resource(Quote).create_custom()
 
         assert isinstance(response, MyVRObject)
         assert response.key == resource_data['key']

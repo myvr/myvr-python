@@ -3,13 +3,13 @@ import json
 from myvr.api.mixins import CreateMixin, ListMixin, RetrieveMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources import Payment
-from tests.utils import API_KEY, API_URL, API_VERSION, get_resource_actions, sort_actions
+from tests.utils import get_resource_actions, init_resource, sort_actions
 
 
 class TestPayment:
     @property
-    def resource(self):
-        return Payment(API_KEY, API_URL, API_VERSION)
+    def resource(self) -> Payment:
+        return init_resource(Payment)
 
     def test_settings(self):
         assert Payment.resource_url == '/reservation-payments/'

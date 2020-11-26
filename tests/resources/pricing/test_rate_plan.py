@@ -6,7 +6,7 @@ from myvr import MyVRAPIException
 from myvr.api.mixins import ListMixin, RetrieveMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources import RatePlan
-from tests.utils import API_KEY, API_URL, API_VERSION, get_resource_actions, sort_actions
+from tests.utils import get_resource_actions, init_resource, sort_actions
 
 
 class TestRatePlanResource:
@@ -23,8 +23,8 @@ class TestRatePlanResource:
 
 class TestResetRateMethod:
     @property
-    def resource(self):
-        return RatePlan(API_KEY, API_URL, API_VERSION)
+    def resource(self) -> RatePlan:
+        return init_resource(RatePlan)
 
     def test_invalid_body(self, requests_mock, api_url, key):
         status_code = 400
