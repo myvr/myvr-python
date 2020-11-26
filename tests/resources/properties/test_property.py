@@ -6,7 +6,7 @@ from myvr import MyVRAPIException
 from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources import Property
-from tests.utils import get_resource_actions, init_resource, sort_actions
+from tests.utils import API_SOURCE_URL, get_resource_actions, init_resource, sort_actions
 
 
 class TestPropertyResource:
@@ -28,10 +28,10 @@ class TestResetRateMethod:
     def resource(self) -> Property:
         return init_resource(Property)
 
-    def test_invalid_body(self, requests_mock, api_url, key):
+    def test_invalid_body(self, requests_mock, key):
         status_code = 400
         actual_response = {'non_field_errors': ['Expected a list of items but got type "dict".']}
-        resource_url = f"{api_url}{self.resource.resource_url}{key}/rates/"
+        resource_url = f"{API_SOURCE_URL}{self.resource.resource_url}{key}/rates/"
         requests_mock.put(resource_url, text=json.dumps(actual_response), status_code=status_code)
 
         with pytest.raises(MyVRAPIException) as e:
@@ -41,9 +41,9 @@ class TestResetRateMethod:
         assert error_data['status_code'] == status_code
         assert error_data['message'] == actual_response
 
-    def test_correct_body(self, requests_mock, api_url, key):
+    def test_correct_body(self, requests_mock, key):
         expected_response = {}
-        resource_url = f"{api_url}{self.resource.resource_url}{key}/rates/"
+        resource_url = f"{API_SOURCE_URL}{self.resource.resource_url}{key}/rates/"
 
         requests_mock.put(resource_url, text=json.dumps(expected_response))
         res = self.resource.request('PUT', resource_url)

@@ -3,7 +3,7 @@ import json
 from myvr.api.mixins import CreateMixin, RetrieveMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources.bookings.quote import Quote
-from tests.utils import get_resource_actions, init_resource, sort_actions
+from tests.utils import API_SOURCE_URL, get_resource_actions, init_resource, sort_actions
 
 
 class TestQuote:
@@ -17,8 +17,8 @@ class TestQuote:
 
         assert actual_actions == expected_actions
 
-    def test_create_custom(self, requests_mock, api_url, resource_data):
-        resource_url = f'{api_url}{Quote.resource_url}' + 'custom/'
+    def test_create_custom(self, requests_mock, resource_data):
+        resource_url = API_SOURCE_URL + Quote.resource_url + 'custom/'
 
         requests_mock.post(resource_url, text=json.dumps(resource_data))
         response = init_resource(Quote).create_custom()
