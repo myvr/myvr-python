@@ -5,7 +5,7 @@ from tests.utils import get_common_actions
 
 class TestFeePlanResource:
     def test_settings(self):
-        assert FeePlan.resource_url == '/rate-plans/'
+        assert FeePlan.resource_url == '/fee-plans/'
         assert FeePlan.model_name == 'Fee Plan'
 
     def test_base_actions(self):

@@ -43,3 +43,4 @@ class MyVRClient(BaseAPI):
         # Pricing
         self.Rate = Rate(api_key, api_url, version)
         self.Fee = Fee(api_key, api_url, version)
+        self.FeePlan = Fee(api_key, api_url, version)

@@ -20,5 +20,6 @@ from .properties import (
 from .pricing import (
     Rate,
     Fee,
-    FeePlan
+    FeePlan,
+    RatePlan
 )
