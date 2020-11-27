@@ -10,7 +10,20 @@ from .bookings import (
     Refund,
     Reservation,
 )
-from .pricing import (Fee, FeePlan, Rate, RatePlan)
+from .crm import (
+    Contact,
+    ContactTag,
+    Inquiry,
+    InquiryMessage,
+    MessageTemplate,
+    Source,
+)
+from .pricing import (
+    Fee,
+    FeePlan,
+    Rate,
+    RatePlan,
+)
 from .properties import (
     Amenity,
     CalendarEvent,

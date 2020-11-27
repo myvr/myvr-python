@@ -3,9 +3,14 @@ from myvr.resources import (
     Amenity,
     CalendarEvent,
     CancellationReason,
+    Contact,
+    ContactTag,
     DailyAvailability,
     Expense,
     Fee,
+    Inquiry,
+    InquiryMessage,
+    MessageTemplate,
     Payment,
     PaymentMethod,
     Photo,
@@ -17,6 +22,7 @@ from myvr.resources import (
     Refund,
     Reservation,
     Room,
+    Source,
 )
 
 
@@ -52,3 +58,11 @@ class MyVRClient(BaseAPI):
         self.Rate = Rate(api_key, api_url, version)
         self.Fee = Fee(api_key, api_url, version)
         self.FeePlan = Fee(api_key, api_url, version)
+
+        # CRM
+        self.Contact = Contact(api_key, api_url, version)
+        self.ContactTag = ContactTag(api_key, api_url, version)
+        self.Inquiry = Inquiry(api_key, api_url, version)
+        self.InquiryMessage = InquiryMessage(api_key, api_url, version)
+        self.MessageTemplate = MessageTemplate(api_key, api_url, version)
+        self.Source = Source(api_key, api_url, version)
