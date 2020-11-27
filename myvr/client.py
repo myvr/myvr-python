@@ -17,6 +17,8 @@ from myvr.resources import (
     Refund,
     Reservation,
     Room,
+    MerchantAccount,
+    CustomField
 )
 
 
@@ -52,3 +54,7 @@ class MyVRClient(BaseAPI):
         self.Rate = Rate(api_key, api_url, version)
         self.Fee = Fee(api_key, api_url, version)
         self.FeePlan = Fee(api_key, api_url, version)
+
+        # Settings
+        self.MerchantAccount = MerchantAccount(api_key, api_url, version)
+        self.CustomField = CustomField(api_key, api_url, version)

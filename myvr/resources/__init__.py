@@ -20,3 +20,5 @@ from .properties import (
     PropertyHierarchy,
     Room,
 )
+
+from .settings import MerchantAccount, CustomField
