@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from myvr import MyVRAPIException
+from myvr import exceptions
 from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources import Property
@@ -34,7 +34,7 @@ class TestResetRateMethod:
         resource_url = f"{API_SOURCE_URL}{self.resource.resource_url}{key}/rates/"
         requests_mock.put(resource_url, text=json.dumps(actual_response), status_code=status_code)
 
-        with pytest.raises(MyVRAPIException) as e:
+        with pytest.raises(exceptions.MyVRAPIException) as e:
             self.resource.request('PUT', resource_url)
 
         error_data = e.value.data
