@@ -12,7 +12,8 @@ class CreateMixin(APIResource):
         :return: Created MyVRObject instance or error information
         """
 
-        return self.request('POST', self.base_url, data=data)
+        return self.client.request('POST', self.base_url,
+                                   self.model_name, data=data)
 
 
 class RetrieveMixin(APIResource):
@@ -24,7 +25,8 @@ class RetrieveMixin(APIResource):
         :return: MyVRObject instance with given key or error information
         """
 
-        return self.request('GET', self.get_key_url(key), data=data)
+        return self.client.request('GET', self.get_key_url(key),
+                                   self.model_name, data=data)
 
 
 class UpdateMixin(APIResource):
@@ -36,7 +38,8 @@ class UpdateMixin(APIResource):
         :return: MyVRObject instance with given key or error information
         """
 
-        return self.request('PUT', self.get_key_url(key), data=data)
+        return self.client.request('PUT', self.get_key_url(key),
+                                   self.model_name, data=data)
 
 
 class DeleteMixin(APIResource):
@@ -48,17 +51,13 @@ class DeleteMixin(APIResource):
         :return: Empty MyVRObject instance or error information
         """
 
-        return self.request('DELETE', self.get_key_url(key), data=data)
+        return self.client.request('DELETE', self.get_key_url(key),
+                                   self.model_name, data=data)
 
 
 class ListMixin(APIResource):
-    def list(
-            self,
-            limit: int = 0,
-            offset: int = 0,
-            query_params: dict = None,
-            data: dict = None
-    ) -> MyVRCollection:
+    def list(self, limit: int = 0, offset: int = 0,
+             query_params: dict = None, data: dict = None) -> MyVRCollection:
         """
         Base method to perform GET request for many data points
         :param limit: int, Pagination parameter. The limit of the query, default 0
@@ -83,7 +82,7 @@ class ListMixin(APIResource):
         query = parse.urlencode(query_params)
         url = f'{self.base_url}?{query}'
 
-        return self.request('GET', url, data=data)
+        return self.client.request('GET', url, self.model_name, data=data)
 
 
 class ModelViewSet(CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin):
