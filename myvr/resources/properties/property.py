@@ -5,7 +5,7 @@ from myvr.api.mixins import ModelViewSet
 
 
 class Property(ModelViewSet):
-    resource_url = '/properties/'
-    model_name = 'Property'
+    resource_url = 'properties'
+    resource_name = 'Property'
 
     reset_rate = partialmethod(APIResource.object_action, path='rates/')

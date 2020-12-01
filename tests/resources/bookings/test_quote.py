@@ -1,15 +1,19 @@
 import json
 
-from myvr.api.mixins import CreateMixin, RetrieveMixin
+from myvr.api.mixins import CreateMixin
+from myvr.api.mixins import RetrieveMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources.bookings.quote import Quote
-from tests.utils import API_SOURCE_URL, get_resource_actions, init_resource, sort_actions
+from tests.utils import API_SOURCE_URL
+from tests.utils import get_resource_actions
+from tests.utils import init_resource
+from tests.utils import sort_actions
 
 
 class TestQuote:
     def test_settings(self):
-        assert Quote.resource_url == '/quotes/'
-        assert Quote.model_name == 'Quote'
+        assert Quote.resource_url == 'quotes'
+        assert Quote.resource_name == 'Quote'
 
     def test_base_actions(self):
         expected_actions = sort_actions([CreateMixin, RetrieveMixin])

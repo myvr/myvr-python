@@ -1,6 +1,7 @@
-from myvr.api.mixins import ListMixin, RetrieveMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
 
 
 class Expense(RetrieveMixin, ListMixin):
-    resource_url = '/reservation-expenses/'
-    model_name = 'Reservation Expense'
+    resource_url = 'reservation-expenses'
+    resource_name = 'Reservation Expense'

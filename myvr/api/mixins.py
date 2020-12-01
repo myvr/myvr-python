@@ -1,7 +1,8 @@
 from urllib import parse
 
 from myvr.api.base import APIResource
-from myvr.api.myvr_objects import MyVRCollection, MyVRObject
+from myvr.api.myvr_objects import MyVRCollection
+from myvr.api.myvr_objects import MyVRObject
 
 
 class CreateMixin(APIResource):
@@ -12,8 +13,12 @@ class CreateMixin(APIResource):
         :return: Created MyVRObject instance or error information
         """
 
-        return self.client.request('POST', self.base_url,
-                                   self.model_name, data=data)
+        return self._client.request(
+            'POST',
+            self.base_url,
+            self.resource_name,
+            data=data
+        )
 
 
 class RetrieveMixin(APIResource):
@@ -25,8 +30,12 @@ class RetrieveMixin(APIResource):
         :return: MyVRObject instance with given key or error information
         """
 
-        return self.client.request('GET', self.get_key_url(key),
-                                   self.model_name, data=data)
+        return self._client.request(
+            'GET',
+            self.get_key_url(key),
+            self.resource_name,
+            data=data
+        )
 
 
 class UpdateMixin(APIResource):
@@ -38,8 +47,12 @@ class UpdateMixin(APIResource):
         :return: MyVRObject instance with given key or error information
         """
 
-        return self.client.request('PUT', self.get_key_url(key),
-                                   self.model_name, data=data)
+        return self._client.request(
+            'PUT',
+            self.get_key_url(key),
+            self.resource_name,
+            data=data
+        )
 
 
 class DeleteMixin(APIResource):
@@ -51,13 +64,22 @@ class DeleteMixin(APIResource):
         :return: Empty MyVRObject instance or error information
         """
 
-        return self.client.request('DELETE', self.get_key_url(key),
-                                   self.model_name, data=data)
+        return self._client.request(
+            'DELETE',
+            self.get_key_url(key),
+            self.resource_name,
+            data=data
+        )
 
 
 class ListMixin(APIResource):
-    def list(self, limit: int = 0, offset: int = 0,
-             query_params: dict = None, data: dict = None) -> MyVRCollection:
+    def list(
+            self,
+            limit: int = 0,
+            offset: int = 0,
+            query_params: dict = None,
+            data: dict = None
+    ) -> MyVRCollection:
         """
         Base method to perform GET request for many data points
         :param limit: int, Pagination parameter. The limit of the query, default 0
@@ -73,19 +95,30 @@ class ListMixin(APIResource):
         if not query_params:
             query_params = {}
 
-        if limit not in data:
-            data['limit'] = limit
+        if limit not in query_params:
+            query_params['limit'] = limit
 
-        if offset not in data:
-            data['offset'] = offset
+        if offset not in query_params:
+            query_params['offset'] = offset
 
         query = parse.urlencode(query_params)
         url = f'{self.base_url}?{query}'
 
-        return self.client.request('GET', url, self.model_name, data=data)
+        return self._client.request(
+            'GET',
+            url,
+            self.resource_name,
+            data=data
+        )
 
 
-class ModelViewSet(CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin):
+class ModelViewSet(
+    CreateMixin,
+    RetrieveMixin,
+    UpdateMixin,
+    DeleteMixin,
+    ListMixin
+):
     """
         Generic with implementation of all base actions:
         - create

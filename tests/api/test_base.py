@@ -3,23 +3,35 @@ import json
 import pytest
 
 from myvr.api.base import APIResource
-from myvr.api.exceptions import MyVRAPIException, ResourceUrlError
-from myvr.api.myvr_objects import MyVRCollection, MyVRObject
-from tests.utils import API_KEY, API_SOURCE_URL, API_URL, API_VERSION
+from myvr.api.exceptions import MyVRAPIError
+from myvr.api.exceptions import ResourceUrlError
+from myvr.api.myvr_objects import MyVRCollection
+from myvr.api.myvr_objects import MyVRObject
+from tests.utils import API_KEY
+from tests.utils import API_SOURCE_URL
+from tests.utils import API_URL
+from tests.utils import API_VERSION
 
 
 class TestApiResource:
     class MyResource(APIResource):
-        model_name = 'MyResource'
-        resource_url = '/my-resource/'
+        resource_name = 'MyResource'
+        resource_url = 'my-resource'
+
+    class MyClient(MyVRClient):
+        api_url = API_URL
+
+    @property
+    def client(self):
+        return MyVRClient(API_KEY, API_VERSION)
 
     @property
     def resource(self):
-        return self.MyResource(API_KEY, API_URL, API_VERSION)
+        return self.MyResource(self.client)
 
     def test_get_headers(self):
         headers = {}
-        actual_headers = self.resource.get_headers(headers)
+        actual_headers = self.resource._client.get_headers(headers)
         expected_headers = {
             'Authorization': f'Bearer {API_KEY}'
         }
@@ -29,7 +41,7 @@ class TestApiResource:
         headers = {
             'head1': 'head1',
         }
-        actual_headers = self.resource.get_headers(headers)
+        actual_headers = self.resource._client.get_headers(headers)
         expected_headers = {
             'head1': 'head1',
             'Authorization': f'Bearer {API_KEY}'
@@ -41,13 +53,18 @@ class TestApiResource:
             'key': 'key1',
             'name': 'name1'
         }
-        myvr_record = self.resource.convert_to_myvr_object(response)
+        myvr_record = self.resource._client.convert_to_myvr_object(
+            response,
+            self.resource.resource_name
+        )
 
         assert isinstance(myvr_record, MyVRObject)
         assert dict(myvr_record) == response
 
     def test_convert_list_to_myvr_object(self, resource_list_data):
-        myvr_collection = self.resource.convert_to_myvr_object(resource_list_data)
+        myvr_collection = self.resource._client.convert_to_myvr_object(
+            resource_list_data, self.resource.resource_name
+        )
 
         assert isinstance(myvr_collection, MyVRCollection)
         assert len(myvr_collection) == len(resource_list_data['results'])
@@ -59,18 +76,18 @@ class TestApiResource:
     def test_create_resource_with_invalid_api_url(self):
         with pytest.raises(ResourceUrlError):
             class MyResource(APIResource):
-                model_name = 'MyResource'
+                resource_name = 'MyResource'
                 resource_url = '/my-resource/'
 
-            MyResource('api_key', 'api_url', 'v1')
+            MyResource(self.client)
 
     def test_create_resource_with_invalid_resource_url(self):
         with pytest.raises(ResourceUrlError):
             class MyResource(APIResource):
-                model_name = 'MyResource'
+                resource_name = 'MyResource'
                 resource_url = '/my-resource'
 
-            MyResource('api_key', 'api_url/', 'v1')
+            MyResource(self.client)
 
     def test_make_bad_request(self, requests_mock):
         actual_response = {
@@ -84,8 +101,12 @@ class TestApiResource:
             text=json.dumps(actual_response),
             status_code=status_code
         )
-        with pytest.raises(MyVRAPIException) as e:
-            self.resource.request('POST', self.resource.base_url)
+        with pytest.raises(MyVRAPIError) as e:
+            self.resource._client.request(
+                'POST',
+                self.resource.base_url,
+                self.resource.resource_name
+            )
 
         error_data = e.value.data
         assert error_data['status_code'] == status_code
@@ -96,12 +117,22 @@ class TestApiResource:
         resource_url = API_SOURCE_URL + self.MyResource.resource_url
 
         requests_mock.get(resource_url, text=text)
-        response = self.resource.request('GET', self.resource.base_url)
+        response = self.resource._client.request(
+            'GET',
+            self.resource.base_url,
+            self.resource.resource_name
+        )
+
         assert response.response_text == text
 
     def test_list_response(self, requests_mock):
         resource_url = API_SOURCE_URL + self.MyResource.resource_url
 
         requests_mock.get(resource_url, text='[]')
-        response = self.resource.request('GET', self.resource.base_url)
+        response = self.resource._client.request(
+            'GET',
+            self.resource.base_url,
+            self.resource.resource_name
+        )
+
         assert isinstance(response, list)

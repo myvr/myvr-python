@@ -2,17 +2,24 @@ import json
 
 import pytest
 
-from myvr import MyVRAPIException
-from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
+from myvr.api.exceptions import MyVRAPIError
+from myvr.api.mixins import CreateMixin
+from myvr.api.mixins import DeleteMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
+from myvr.api.mixins import UpdateMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources import Property
-from tests.utils import API_SOURCE_URL, get_resource_actions, init_resource, sort_actions
+from tests.utils import API_SOURCE_URL
+from tests.utils import get_resource_actions
+from tests.utils import init_resource
+from tests.utils import sort_actions
 
 
 class TestPropertyResource:
     def test_settings(self):
-        assert Property.resource_url == '/properties/'
-        assert Property.model_name == 'Property'
+        assert Property.resource_url == 'properties'
+        assert Property.resource_name == 'Property'
 
     def test_base_actions(self):
         expected_actions = sort_actions([
@@ -34,8 +41,8 @@ class TestResetRateMethod:
         resource_url = f"{API_SOURCE_URL}{self.resource.resource_url}{key}/rates/"
         requests_mock.put(resource_url, text=json.dumps(actual_response), status_code=status_code)
 
-        with pytest.raises(MyVRAPIException) as e:
-            self.resource.request('PUT', resource_url)
+        with pytest.raises(MyVRAPIError) as e:
+            self.resource._client.request('PUT', resource_url)
 
         error_data = e.value.data
         assert error_data['status_code'] == status_code
@@ -46,7 +53,7 @@ class TestResetRateMethod:
         resource_url = f"{API_SOURCE_URL}{self.resource.resource_url}{key}/rates/"
 
         requests_mock.put(resource_url, text=json.dumps(expected_response))
-        res = self.resource.request('PUT', resource_url)
+        res = self.resource._client.request('PUT', resource_url)
 
         assert isinstance(res, MyVRObject)
         assert res.key is None

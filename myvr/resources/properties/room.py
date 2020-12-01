@@ -2,5 +2,5 @@ from myvr.api.mixins import ModelViewSet
 
 
 class Room(ModelViewSet):
-    resource_url = '/rooms/'
-    model_name = 'Room'
+    resource_url = 'rooms'
+    resource_name = 'Room'

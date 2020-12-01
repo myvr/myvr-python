@@ -1,4 +1,6 @@
-from typing import List, Type, TypeVar
+from typing import List
+from typing import Type
+from typing import TypeVar
 
 from myvr.api.base import APIResource
 from myvr.api.mixins import ModelViewSet

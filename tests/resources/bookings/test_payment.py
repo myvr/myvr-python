@@ -1,9 +1,14 @@
 import json
 
-from myvr.api.mixins import CreateMixin, ListMixin, RetrieveMixin
+from myvr.api.mixins import CreateMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
 from myvr.api.myvr_objects import MyVRObject
 from myvr.resources import Payment
-from tests.utils import API_SOURCE_URL, get_resource_actions, init_resource, sort_actions
+from tests.utils import API_SOURCE_URL
+from tests.utils import get_resource_actions
+from tests.utils import init_resource
+from tests.utils import sort_actions
 
 
 class TestPayment:
@@ -12,11 +17,13 @@ class TestPayment:
         return init_resource(Payment)
 
     def test_settings(self):
-        assert Payment.resource_url == '/reservation-payments/'
-        assert Payment.model_name == 'Reservation Payment'
+        assert Payment.resource_url == 'reservation-payments'
+        assert Payment.resource_name == 'Reservation Payment'
 
     def test_base_actions(self):
-        expected_actions = sort_actions([CreateMixin, RetrieveMixin, ListMixin])
+        expected_actions = sort_actions(
+            [CreateMixin, RetrieveMixin, ListMixin]
+        )
         actual_actions = get_resource_actions(Payment)
 
         assert actual_actions == expected_actions

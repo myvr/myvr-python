@@ -1,5 +1,3 @@
-# flake8: noqa
-
 from .amenity import Amenity
 from .calendar_event import CalendarEvent
 from .daily_availability import DailyAvailability

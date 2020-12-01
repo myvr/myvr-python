@@ -1,34 +1,33 @@
-from typing import Union
 import json
+from typing import Union
 
 import requests
 
-from myvr.api.myvr_objects import MyVRObject, MyVRCollection
-from myvr.api.exceptions import MyVRAPIException
-from myvr.resources import (
-    Amenity,
-    CalendarEvent,
-    CancellationReason,
-    DailyAvailability,
-    Expense,
-    Fee,
-    Payment,
-    PaymentMethod,
-    Photo,
-    Promotion,
-    Property,
-    PropertyHierarchy,
-    Quote,
-    Rate,
-    Refund,
-    Reservation,
-    Room,
-)
+from myvr.api.exceptions import MyVRAPIError
+from myvr.api.myvr_objects import MyVRCollection
+from myvr.api.myvr_objects import MyVRObject
+from myvr.resources import Amenity
+from myvr.resources import CalendarEvent
+from myvr.resources import CancellationReason
+from myvr.resources import DailyAvailability
+from myvr.resources import Expense
+from myvr.resources import Fee
+from myvr.resources import Payment
+from myvr.resources import PaymentMethod
+from myvr.resources import Photo
+from myvr.resources import Promotion
+from myvr.resources import Property
+from myvr.resources import PropertyHierarchy
+from myvr.resources import Quote
+from myvr.resources import Rate
+from myvr.resources import Refund
+from myvr.resources import Reservation
+from myvr.resources import Room
 
 
 class MyVRClient:
 
-    api_url: str = 'https://api.myvr.com/',
+    api_url: str = 'https://api.myvr.com/'
 
     def __init__(
             self,
@@ -64,6 +63,10 @@ class MyVRClient:
         self.FeePlan = Fee(self)
 
     @property
+    def base_url(self):
+        return f"{self.api_url}{self._version}"
+
+    @property
     def auth_header(self) -> dict:
         return {'Authorization': f'Bearer {self._api_key}'}
 
@@ -87,7 +90,7 @@ class MyVRClient:
             response_data = response.text
 
         if not response.ok:
-            raise MyVRAPIException(
+            raise MyVRAPIError(
                 data={
                     'error': response.reason,
                     'method': response.request.method,

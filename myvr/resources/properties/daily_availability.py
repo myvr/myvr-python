@@ -2,5 +2,5 @@ from myvr.api.mixins import ListMixin
 
 
 class DailyAvailability(ListMixin):
-    resource_url = '/availability/'
-    model_name = 'Daily Availability'
+    resource_url = 'availability'
+    resource_name = 'Daily Availability'
