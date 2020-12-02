@@ -12,8 +12,8 @@ from tests.utils import sort_actions
 
 class TestPhotoResource:
     def test_settings(self):
-        assert Photo.resource_url == 'photos'
-        assert Photo.resource_name == 'Photo'
+        assert Photo.path == 'photos'
+        assert Photo.name == 'Photo'
 
     def test_base_actions(self):
         expected_actions = sort_actions([

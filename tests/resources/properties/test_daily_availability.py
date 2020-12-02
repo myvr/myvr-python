@@ -5,8 +5,8 @@ from tests.utils import get_resource_actions
 
 class TestDailyAvailability:
     def test_settings(self):
-        assert DailyAvailability.resource_url == 'availability'
-        assert DailyAvailability.resource_name == 'Daily Availability'
+        assert DailyAvailability.path == 'availability'
+        assert DailyAvailability.name == 'Daily Availability'
 
     def test_base_actions(self):
         actual_actions = get_resource_actions(DailyAvailability)

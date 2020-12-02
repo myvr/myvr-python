@@ -12,8 +12,8 @@ from tests.utils import sort_actions
 
 class TestRoomResource:
     def test_settings(self):
-        assert Room.resource_url == 'rooms'
-        assert Room.resource_name == 'Room'
+        assert Room.path == 'rooms'
+        assert Room.name == 'Room'
 
     def test_base_actions(self):
         expected_actions = sort_actions([

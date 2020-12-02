@@ -12,8 +12,8 @@ from tests.utils import sort_actions
 
 class TestAmenityResource:
     def test_settings(self):
-        assert Amenity.resource_url == 'property-amenities'
-        assert Amenity.resource_name == 'Amenity'
+        assert Amenity.path == 'property-amenities'
+        assert Amenity.name == 'Amenity'
 
     def test_base_actions(self):
         expected_actions = sort_actions([

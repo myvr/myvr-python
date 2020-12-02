@@ -12,8 +12,8 @@ from tests.utils import sort_actions
 
 class TestCalendarEvent:
     def test_settings(self):
-        assert CalendarEvent.resource_url == 'calendar-events'
-        assert CalendarEvent.resource_name == 'Calendar Event'
+        assert CalendarEvent.path == 'calendar-events'
+        assert CalendarEvent.name == 'Calendar Event'
 
     def test_base_actions(self):
         expected_actions = sort_actions([
