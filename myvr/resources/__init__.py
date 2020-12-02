@@ -15,6 +15,7 @@ from .crm import (
     ContactAddress,
     ContactEmail,
     ContactNote,
+    ContactPhone,
     ContactTag,
     Inquiry,
     InquiryMessage,

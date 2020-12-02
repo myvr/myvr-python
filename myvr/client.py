@@ -7,6 +7,7 @@ from myvr.resources import (
     ContactAddress,
     ContactEmail,
     ContactNote,
+    ContactPhone,
     ContactTag,
     DailyAvailability,
     Expense,
@@ -68,6 +69,7 @@ class MyVRClient(BaseAPI):
         self.ContactAddress = ContactAddress(api_key, api_url, version)
         self.ContactEmail = ContactEmail(api_key, api_url, version)
         self.ContactNote = ContactNote(api_key, api_url, version)
+        self.ContactPhone = ContactPhone(api_key, api_url, version)
         self.ContactTag = ContactTag(api_key, api_url, version)
         self.Inquiry = Inquiry(api_key, api_url, version)
         self.InquiryMessage = InquiryMessage(api_key, api_url, version)
