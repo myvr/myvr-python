@@ -4,6 +4,7 @@ from myvr.resources import (
     CalendarEvent,
     CancellationReason,
     Contact,
+    ContactAddress,
     ContactTag,
     DailyAvailability,
     Expense,
@@ -62,6 +63,7 @@ class MyVRClient(BaseAPI):
 
         # CRM
         self.Contact = Contact(api_key, api_url, version)
+        self.ContactAddress = ContactAddress(api_key, api_url, version)
         self.ContactTag = ContactTag(api_key, api_url, version)
         self.Inquiry = Inquiry(api_key, api_url, version)
         self.InquiryMessage = InquiryMessage(api_key, api_url, version)
