@@ -1,5 +1,7 @@
 import pytest
 
+from tests.utils import create_client
+
 
 @pytest.fixture
 def resource_data():
@@ -25,3 +27,8 @@ def resource_list_data():
 @pytest.fixture
 def key():
     return 'key'
+
+
+@pytest.fixture
+def myvr_client():
+    return create_client()

@@ -30,9 +30,10 @@ class RetrieveMixin(APIResource):
         :return: MyVRObject instance with given key or error information
         """
 
+        url = self.add_path(self.base_url, key)
         return self._client.request(
             'GET',
-            self.get_key_url(key),
+            url,
             self.name,
             data=data
         )
@@ -47,9 +48,10 @@ class UpdateMixin(APIResource):
         :return: MyVRObject instance with given key or error information
         """
 
+        url = self.add_path(self.base_url, key)
         return self._client.request(
             'PUT',
-            self.get_key_url(key),
+            url,
             self.name,
             data=data
         )
@@ -64,9 +66,10 @@ class DeleteMixin(APIResource):
         :return: Empty MyVRObject instance or error information
         """
 
+        url = self.add_path(self.base_url, key)
         return self._client.request(
             'DELETE',
-            self.get_key_url(key),
+            url,
             self.name,
             data=data
         )
