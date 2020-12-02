@@ -8,4 +8,8 @@ class Property(ModelViewSet):
     path = 'properties'
     name = 'Property'
 
-    reset_rate = partialmethod(APIResource.object_action, path='rates', method='PUT')
+    reset_rate = partialmethod(
+        APIResource.object_action,
+        path='rates',
+        method='PUT'
+    )

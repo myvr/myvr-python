@@ -83,8 +83,10 @@ class ListMixin(APIResource):
     ) -> MyVRCollection:
         """
         Base method to perform GET request for many data points
-        :param limit: int, Pagination parameter. The limit of the query, default 0
-        :param offset: int, Pagination parameter. The offset of the query, default 0
+        :param limit: int, Pagination parameter.
+                The limit of the query, default 0
+        :param offset: int, Pagination parameter.
+                The offset of the query, default 0
         :param query_params: dict, params for query string
         :param data: dict, Request's body, default None
         :return: List of MyVRObject instances or error information.

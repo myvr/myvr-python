@@ -105,11 +105,11 @@ class MyVRClient:
         return response_data
 
     def request(
-            self, 
-            method: str, 
-            url: str, 
-            model_name: str, 
-            headers: dict = None, 
+            self,
+            method: str,
+            url: str,
+            model_name: str,
+            headers: dict = None,
             data: dict = None,
             query_params: dict = None
     ) -> Union[MyVRObject, MyVRCollection]:
@@ -133,13 +133,13 @@ class MyVRClient:
         response = requests.request(method, url, headers=headers, json=data)
         data = self._verify_response(response)
         return self.convert_to_myvr_object(data, model_name)
-    
+
     @staticmethod
     def convert_to_myvr_object(
-            response_data: dict, 
+            response_data: dict,
             model_name: str
     ) -> Union[MyVRObject, MyVRCollection]:
-        
+
         if isinstance(response_data, list) or 'results' in response_data:
             object_cls = MyVRCollection
         else:
