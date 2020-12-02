@@ -15,8 +15,8 @@ from tests.utils import API_VERSION
 
 class TestCreateMixin:
     class MyResource(CreateMixin):
-        resource_name = 'MyResource'
-        resource_url = 'my-resource'
+        name = 'MyResource'
+        path = 'my-resource'
 
     class MyClient:
         api_url = API_URL
@@ -39,8 +39,8 @@ class TestCreateMixin:
 
 class TestRetrieveMixin:
     class MyResource(RetrieveMixin):
-        resource_name = 'MyResource'
-        resource_url = '/my-resource/'
+        name = 'MyResource'
+        path = '/my-resource/'
 
     class MyClient:
         api_url = API_URL
@@ -62,8 +62,8 @@ class TestRetrieveMixin:
 
 class TestUpdateMixin:
     class MyResource(UpdateMixin):
-        resource_name = 'MyResource'
-        resource_url = '/my-resource/'
+        name = 'MyResource'
+        path = '/my-resource/'
 
     class MyClient:
         api_url = API_URL
@@ -86,8 +86,8 @@ class TestUpdateMixin:
 
 class TestDeleteMixin:
     class MyResource(DeleteMixin):
-        resource_name = 'MyResource'
-        resource_url = '/my-resource/'
+        name = 'MyResource'
+        path = '/my-resource/'
 
     class MyClient:
         api_url = API_URL
@@ -110,8 +110,8 @@ class TestDeleteMixin:
 
 class TestListMixin:
     class MyResource(ListMixin):
-        resource_name = 'MyResource'
-        resource_url = '/my-resource/'
+        name = 'MyResource'
+        path = '/my-resource/'
 
     class MyClient:
         api_url = API_URL

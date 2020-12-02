@@ -26,7 +26,6 @@ from myvr.resources import Room
 
 
 class MyVRClient:
-
     api_url: str = 'https://api.myvr.com/'
 
     def __init__(
@@ -34,7 +33,6 @@ class MyVRClient:
             api_key: str,
             version: str = 'v1'
     ):
-
         self._api_key = api_key
         self._version = version
 
@@ -64,7 +62,7 @@ class MyVRClient:
 
     @property
     def base_url(self):
-        return f"{self.api_url}{self._version}"
+        return f'{self.api_url}{self._version}'
 
     @property
     def auth_header(self) -> dict:

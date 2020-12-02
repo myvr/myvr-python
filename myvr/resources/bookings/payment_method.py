@@ -4,5 +4,5 @@ from myvr.api.mixins import RetrieveMixin
 
 
 class PaymentMethod(CreateMixin, RetrieveMixin, ListMixin):
-    resource_url = 'reservation-payment-methods'
-    resource_name = 'Reservation Payment Method'
+    path = 'reservation-payment-methods'
+    name = 'Reservation Payment Method'

@@ -7,8 +7,8 @@ from myvr.api.resource import APIResource
 
 
 class Payment(CreateMixin, RetrieveMixin, ListMixin):
-    resource_url = 'reservation-payments'
-    resource_name = 'Reservation Payment'
+    path = 'reservation-payments'
+    name = 'Reservation Payment'
 
     process = partialmethod(APIResource.object_action, path='process/')
     refund = partialmethod(APIResource.object_action, path='refund/')

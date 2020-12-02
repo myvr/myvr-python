@@ -14,25 +14,18 @@ class APIResource:
     specified in general class not the abstract.
     """
 
-    resource_url: ClassVar[str]
-    resource_name: ClassVar[str]
+    path: ClassVar[str]
+    name: ClassVar[str]
 
     def __init__(self, client):
         """
         :param client: MyVRClient
         """
 
-        if '/' in self.resource_url:
+        if '/' in self.path:
             raise ResourceUrlError()
 
         self._client = client
-
-    @property
-    def base_url(self) -> str:
-        return f"{self._client.base_url}/{self.resource_url}/"
-
-    def get_key_url(self, key: str) -> str:
-        return f"{self.base_url}{key}/"
 
     def action(self, path: str, **data) -> MyVRObject:
         """
@@ -42,11 +35,11 @@ class APIResource:
         :return: MyVRObject
         """
 
-        url = self.base_url + path
+        url = self.add_path(self.base_url, path)
         return self._client.request(
             'POST',
             url,
-            self.resource_name,
+            self.name,
             data=data
         )
 
@@ -66,10 +59,21 @@ class APIResource:
         :return: MyVRObject
         """
 
-        url = self.get_key_url(key) + path
+        url = self.add_path(self.base_url, key, path)
         return self._client.request(
             method,
             url,
-            self.resource_name,
+            self.name,
             data=data
         )
+
+    @property
+    def base_url(self) -> str:
+        return self.add_path(self._client.base_url, self.path)
+
+    @classmethod
+    def add_path(cls, url: str, *paths) -> str:
+        delimiter = '/'
+        if not url.endswith(delimiter):
+            url += delimiter
+        return url + delimiter.join(paths) + delimiter

@@ -6,7 +6,7 @@ from myvr.api.resource import APIResource
 
 
 class Quote(CreateMixin, RetrieveMixin):
-    resource_url = 'quotes'
-    resource_name = 'Quote'
+    path = 'quotes'
+    name = 'Quote'
 
     create_custom = partialmethod(APIResource.action, path='custom/')

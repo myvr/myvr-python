@@ -6,8 +6,8 @@ from myvr.api.mixins import RetrieveMixin
 
 
 class RatePlan(RetrieveMixin, ListMixin):
-    resource_url = 'rate-plans'
-    resource_name = 'Rate Plan'
+    path = 'rate-plans'
+    name = 'Rate Plan'
 
     reset_rate = partialmethod(
         APIResource.object_action,

@@ -16,7 +16,7 @@ class CreateMixin(APIResource):
         return self._client.request(
             'POST',
             self.base_url,
-            self.resource_name,
+            self.name,
             data=data
         )
 
@@ -33,7 +33,7 @@ class RetrieveMixin(APIResource):
         return self._client.request(
             'GET',
             self.get_key_url(key),
-            self.resource_name,
+            self.name,
             data=data
         )
 
@@ -50,7 +50,7 @@ class UpdateMixin(APIResource):
         return self._client.request(
             'PUT',
             self.get_key_url(key),
-            self.resource_name,
+            self.name,
             data=data
         )
 
@@ -67,7 +67,7 @@ class DeleteMixin(APIResource):
         return self._client.request(
             'DELETE',
             self.get_key_url(key),
-            self.resource_name,
+            self.name,
             data=data
         )
 
@@ -107,7 +107,7 @@ class ListMixin(APIResource):
         return self._client.request(
             'GET',
             url,
-            self.resource_name,
+            self.name,
             data=data
         )
 

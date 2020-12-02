@@ -3,5 +3,5 @@ from myvr.api.mixins import RetrieveMixin
 
 
 class FeePlan(RetrieveMixin, ListMixin):
-    resource_url = 'fee-plans'
-    resource_name = 'Fee Plan'
+    path = 'fee-plans'
+    name = 'Fee Plan'

@@ -9,8 +9,8 @@ from myvr.api.resource import APIResource
 
 
 class Reservation(CreateMixin, RetrieveMixin, UpdateMixin, ListMixin):
-    resource_url = 'reservations'
-    resource_name = 'Reservation'
+    path = 'reservations'
+    name = 'Reservation'
 
     create_from_quote = partialmethod(CreateMixin.create)
     update_from_quote = partialmethod(UpdateMixin.update)
