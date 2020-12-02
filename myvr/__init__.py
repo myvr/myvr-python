@@ -1,1 +1,2 @@
-__version__ = '0.0.1'
+from myvr.api import exceptions
+from myvr.client import MyVRClient
