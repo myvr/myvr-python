@@ -13,6 +13,7 @@ from .bookings import (
 from .crm import (
     Contact,
     ContactAddress,
+    ContactEmail,
     ContactTag,
     Inquiry,
     InquiryMessage,

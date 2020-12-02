@@ -2,6 +2,7 @@
 
 from .contact import Contact
 from .contact_address import ContactAddress
+from .contact_email import ContactEmail
 from .contact_tag import ContactTag
 from .inquiry import Inquiry
 from .inquiry_message import InquiryMessage
