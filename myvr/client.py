@@ -1,5 +1,6 @@
 import json
 from typing import Union
+from urllib import parse
 
 import requests
 
@@ -109,7 +110,8 @@ class MyVRClient:
             url: str, 
             model_name: str, 
             headers: dict = None, 
-            data: dict = None
+            data: dict = None,
+            query_params: dict = None
     ) -> Union[MyVRObject, MyVRCollection]:
         """
         Performs request to the API.
@@ -118,10 +120,16 @@ class MyVRClient:
         :param model_name: str, The name of the model
         :param headers: dict, Dictionary with headers, default None
         :param data: dict, Request's body, default None
+        :param query_params: dict, query string parameters
         :return: MyVRObject with the fields of the model or error information
         """
 
         headers = self.get_headers(headers if headers else {})
+
+        if query_params:
+            query = parse.urlencode(query_params)
+            url += f'?{query}'
+
         response = requests.request(method, url, headers=headers, json=data)
         data = self._verify_response(response)
         return self.convert_to_myvr_object(data, model_name)

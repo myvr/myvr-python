@@ -1,5 +1,3 @@
-from urllib import parse
-
 from myvr.api.myvr_objects import MyVRCollection
 from myvr.api.myvr_objects import MyVRObject
 from myvr.api.resource import APIResource
@@ -104,14 +102,12 @@ class ListMixin(APIResource):
         if offset not in query_params:
             query_params['offset'] = offset
 
-        query = parse.urlencode(query_params)
-        url = f'{self.base_url}?{query}'
-
         return self._client.request(
             'GET',
-            url,
+            self.base_url,
             self.name,
-            data=data
+            data=data,
+            query_params=query_params,
         )
 
 

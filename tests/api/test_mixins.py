@@ -1,5 +1,4 @@
 import json
-from urllib import parse
 
 from myvr.api.mixins import CreateMixin
 from myvr.api.mixins import DeleteMixin
@@ -92,31 +91,3 @@ class TestListMixin:
 
         assert isinstance(response, MyVRCollection)
         assert list(response) == resource_list_data['results']
-
-    def test_list_with_query(self, requests_mock, myvr_client):
-        resource_url = f'{API_SOURCE_URL}/{self.MyResource.path}/'
-        limit, offset = 0, 0
-        query_params = {
-            'a': 1,
-            'b': 2,
-            'limit': limit,
-            'offset': offset
-        }
-        query = parse.urlencode(query_params)
-        resource_url += f'?{query}'
-
-        expected_result = [
-            {'key': 'key1', 'name': 'name1'},
-            {'key': 'key2', 'name': 'name2'},
-        ]
-        requests_mock.get(resource_url, text=json.dumps(expected_result))
-
-        resource = self.MyResource(myvr_client)
-        response = resource.list(
-            limit=limit,
-            offset=offset,
-            query_params={'a': 1, 'b': 2}
-        )
-
-        assert isinstance(response, MyVRCollection)
-        assert len(response) == len(expected_result)

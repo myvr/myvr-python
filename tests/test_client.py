@@ -1,4 +1,5 @@
 import json
+from urllib import parse
 
 import pytest
 
@@ -99,3 +100,24 @@ class TestMyVRClient:
             self.resource_name
         )
         assert isinstance(response, list)
+
+    def test_request_with_query_string(self, requests_mock):
+            limit, offset = 0, 0
+            query_params = {
+                'a': 1,
+                'b': 2,
+                'limit': limit,
+                'offset': offset
+            }
+            query = parse.urlencode(query_params)
+            resource_url = f'{API_SOURCE_URL}?{query}'
+
+            requests_mock.get(resource_url, text='{}')
+
+            response = self.client.request(
+                method='GET',
+                url=API_SOURCE_URL,
+                model_name=self.resource_name,
+                query_params=query_params,
+            )
+            assert response == {}
