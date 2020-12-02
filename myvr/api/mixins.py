@@ -1,8 +1,8 @@
 from urllib import parse
 
-from myvr.api.base import APIResource
 from myvr.api.myvr_objects import MyVRCollection
 from myvr.api.myvr_objects import MyVRObject
+from myvr.api.resource import APIResource
 
 
 class CreateMixin(APIResource):

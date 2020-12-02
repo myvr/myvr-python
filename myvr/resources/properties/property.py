@@ -1,7 +1,7 @@
 from functools import partialmethod
 
-from myvr.api.base import APIResource
 from myvr.api.mixins import ModelViewSet
+from myvr.api.resource import APIResource
 
 
 class Property(ModelViewSet):

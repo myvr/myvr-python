@@ -1,11 +1,11 @@
 from functools import partialmethod
 
-from myvr.api.base import APIResource
 from myvr.api.mixins import CreateMixin
 from myvr.api.mixins import ListMixin
 from myvr.api.mixins import RetrieveMixin
 from myvr.api.mixins import UpdateMixin
 from myvr.api.myvr_objects import MyVRObject
+from myvr.api.resource import APIResource
 
 
 class Reservation(CreateMixin, RetrieveMixin, UpdateMixin, ListMixin):

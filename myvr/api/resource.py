@@ -34,6 +34,22 @@ class APIResource:
     def get_key_url(self, key: str) -> str:
         return f"{self.base_url}{key}/"
 
+    def action(self, path: str, **data) -> MyVRObject:
+        """
+        Performs extra action
+        :param path: action path
+        :param data: dict with parameters
+        :return: MyVRObject
+        """
+
+        url = self.base_url + path
+        return self._client.request(
+            'POST',
+            url,
+            self.resource_name,
+            data=data
+        )
+
     def object_action(
             self,
             key: str,
@@ -53,22 +69,6 @@ class APIResource:
         url = self.get_key_url(key) + path
         return self._client.request(
             method,
-            url,
-            self.resource_name,
-            data=data
-        )
-
-    def action(self, path: str, **data) -> MyVRObject:
-        """
-        Performs extra action
-        :param path: action path
-        :param data: dict with parameters
-        :return: MyVRObject
-        """
-
-        url = self.base_url + path
-        return self._client.request(
-            'POST',
             url,
             self.resource_name,
             data=data
