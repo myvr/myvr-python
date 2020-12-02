@@ -1,6 +1,8 @@
-from myvr.api.mixins import CreateMixin, ListMixin, RetrieveMixin
+from myvr.api.mixins import CreateMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
 
 
 class Promotion(CreateMixin, RetrieveMixin, ListMixin):
-    resource_url = '/promotions/'
-    model_name = 'Promotion'
+    path = 'promotions'
+    name = 'Promotion'
