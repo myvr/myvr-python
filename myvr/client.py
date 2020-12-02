@@ -23,6 +23,7 @@ from myvr.resources import (
     Reservation,
     Room,
     Source,
+    Tag,
 )
 
 
@@ -66,3 +67,4 @@ class MyVRClient(BaseAPI):
         self.InquiryMessage = InquiryMessage(api_key, api_url, version)
         self.MessageTemplate = MessageTemplate(api_key, api_url, version)
         self.Source = Source(api_key, api_url, version)
+        self.Tag = Tag(api_key, api_url, version)
