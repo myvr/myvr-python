@@ -11,8 +11,8 @@ class TestCancellationReason:
     def test_settings(self):
         resource_url = 'reservation-cancellation-reasons'
         resource_name = 'Reservation Cancellation Reason'
-        assert CancellationReason.resource_url == resource_url
-        assert CancellationReason.resource_name == resource_name
+        assert CancellationReason.path == resource_url
+        assert CancellationReason.name == resource_name
 
     def test_base_actions(self):
         expected_actions = sort_actions([RetrieveMixin, ListMixin])

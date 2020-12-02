@@ -10,8 +10,8 @@ from tests.utils import sort_actions
 
 class TestPromotion:
     def test_settings(self):
-        assert Promotion.resource_url == 'promotions'
-        assert Promotion.resource_name == 'Promotion'
+        assert Promotion.path == 'promotions'
+        assert Promotion.name == 'Promotion'
 
     def test_base_actions(self):
         expected_actions = sort_actions(

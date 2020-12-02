@@ -7,8 +7,8 @@ from tests.utils import sort_actions
 
 class TestRefund:
     def test_settings(self):
-        assert Refund.resource_url == 'reservation-refunds'
-        assert Refund.resource_name == 'Reservation Refund'
+        assert Refund.path == 'reservation-refunds'
+        assert Refund.name == 'Reservation Refund'
 
     def test_base_action(self):
         expected_actions = sort_actions([RetrieveMixin, ListMixin])

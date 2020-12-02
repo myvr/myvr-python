@@ -10,6 +10,6 @@ class Payment(CreateMixin, RetrieveMixin, ListMixin):
     path = 'reservation-payments'
     name = 'Reservation Payment'
 
-    process = partialmethod(APIResource.object_action, path='process/')
-    refund = partialmethod(APIResource.object_action, path='refund/')
-    record = partialmethod(APIResource.object_action, path='record/')
+    process = partialmethod(APIResource.object_action, path='process')
+    refund = partialmethod(APIResource.object_action, path='refund')
+    record = partialmethod(APIResource.object_action, path='record')

@@ -10,8 +10,8 @@ from tests.utils import sort_actions
 
 class TestPaymentMethod:
     def test_settings(self):
-        assert PaymentMethod.resource_url == 'reservation-payment-methods'
-        assert PaymentMethod.resource_name == 'Reservation Payment Method'
+        assert PaymentMethod.path == 'reservation-payment-methods'
+        assert PaymentMethod.name == 'Reservation Payment Method'
 
     def test_base_actions(self):
         expected_actions = sort_actions(

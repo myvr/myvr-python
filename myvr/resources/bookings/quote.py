@@ -9,4 +9,4 @@ class Quote(CreateMixin, RetrieveMixin):
     path = 'quotes'
     name = 'Quote'
 
-    create_custom = partialmethod(APIResource.action, path='custom/')
+    create_custom = partialmethod(APIResource.action, path='custom')
