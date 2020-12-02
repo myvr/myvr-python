@@ -20,6 +20,7 @@ from myvr.resources import Property
 from myvr.resources import PropertyHierarchy
 from myvr.resources import Quote
 from myvr.resources import Rate
+from myvr.resources import RatePlan
 from myvr.resources import Refund
 from myvr.resources import Reservation
 from myvr.resources import Room
@@ -57,6 +58,7 @@ class MyVRClient:
 
         # Pricing
         self.Rate = Rate(self)
+        self.RatePlan = RatePlan(self)
         self.Fee = Fee(self)
         self.FeePlan = Fee(self)
 

@@ -11,6 +11,6 @@ class RatePlan(RetrieveMixin, ListMixin):
 
     reset_rate = partialmethod(
         APIResource.object_action,
-        path='rates/',
+        path='rates',
         method='PUT'
     )

@@ -12,8 +12,8 @@ from tests.utils import sort_actions
 
 class TestRateResource:
     def test_settings(self):
-        assert Rate.resource_url == 'rates'
-        assert Rate.resource_name == 'Rate'
+        assert Rate.path == 'rates'
+        assert Rate.name == 'Rate'
 
     def test_base_actions(self):
         expected_actions = sort_actions([

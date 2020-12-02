@@ -9,8 +9,8 @@ from tests.utils import sort_actions
 
 class TestFeePlanResource:
     def test_settings(self):
-        assert FeePlan.resource_url == 'fee-plans'
-        assert FeePlan.resource_name == 'Fee Plan'
+        assert FeePlan.path == 'fee-plans'
+        assert FeePlan.name == 'Fee Plan'
 
     def test_base_actions(self):
         expected_actions = sort_actions([RetrieveMixin, ListMixin])

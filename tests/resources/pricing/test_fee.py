@@ -12,8 +12,8 @@ from tests.utils import sort_actions
 
 class TestFeeResource:
     def test_settings(self):
-        assert Fee.resource_url == 'fees'
-        assert Fee.resource_name == 'Fee'
+        assert Fee.path == 'fees'
+        assert Fee.name == 'Fee'
 
     def test_base_actions(self):
         expected_actions = sort_actions([
