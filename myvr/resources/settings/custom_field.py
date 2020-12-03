@@ -1,6 +1,8 @@
-from myvr.api.mixins import CreateMixin, RetrieveMixin, ListMixin
+from myvr.api.mixins import CreateMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
 
 
 class CustomField(CreateMixin, RetrieveMixin, ListMixin):
-    resource_url = '/custom-fields/'
-    model_name = 'Custom Field'
+    path = 'custom-fields'
+    name = 'Custom Field'

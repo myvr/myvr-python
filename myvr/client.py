@@ -1,25 +1,23 @@
 from myvr.api.base import BaseAPI
-from myvr.resources import (
-    Amenity,
-    CalendarEvent,
-    CancellationReason,
-    DailyAvailability,
-    Expense,
-    Fee,
-    Payment,
-    PaymentMethod,
-    Photo,
-    Promotion,
-    Property,
-    PropertyHierarchy,
-    Quote,
-    Rate,
-    Refund,
-    Reservation,
-    Room,
-    MerchantAccount,
-    CustomField
-)
+from myvr.resources import Amenity
+from myvr.resources import CalendarEvent
+from myvr.resources import CancellationReason
+from myvr.resources import CustomField
+from myvr.resources import DailyAvailability
+from myvr.resources import Expense
+from myvr.resources import Fee
+from myvr.resources import MerchantAccount
+from myvr.resources import Payment
+from myvr.resources import PaymentMethod
+from myvr.resources import Photo
+from myvr.resources import Promotion
+from myvr.resources import Property
+from myvr.resources import PropertyHierarchy
+from myvr.resources import Quote
+from myvr.resources import Rate
+from myvr.resources import Refund
+from myvr.resources import Reservation
+from myvr.resources import Room
 
 
 class MyVRClient(BaseAPI):
@@ -58,3 +56,6 @@ class MyVRClient(BaseAPI):
         # Settings
         self.MerchantAccount = MerchantAccount(api_key, api_url, version)
         self.CustomField = CustomField(api_key, api_url, version)
+
+        # Settings
+        self.

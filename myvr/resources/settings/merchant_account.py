@@ -1,6 +1,7 @@
-from myvr.api.mixins import RetrieveMixin, ListMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
 
 
 class MerchantAccount(RetrieveMixin, ListMixin):
-    resource_url = '/merchant-accounts/'
-    model_name = 'Merchant Account'
+    path = 'merchant-accounts'
+    name = 'Merchant Account'
