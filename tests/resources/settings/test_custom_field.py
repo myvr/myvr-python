@@ -10,8 +10,8 @@ from tests.utils import sort_actions
 
 class TestCustomFieldResource:
     def test_settings(self):
-        assert CustomField.resource_url == 'custom-fields'
-        assert CustomField.model_name == 'Custom Field'
+        assert CustomField.path == 'custom-fields'
+        assert CustomField.name == 'Custom Field'
 
     def test_base_actions(self):
         expected_actions = sort_actions([

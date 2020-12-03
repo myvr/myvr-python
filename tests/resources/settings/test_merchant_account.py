@@ -9,8 +9,8 @@ from tests.utils import sort_actions
 
 class TestMerchantAccountResource:
     def test_settings(self):
-        assert MerchantAccount.resource_url == 'merchant-accounts'
-        assert MerchantAccount.model_name == 'Merchant Account'
+        assert MerchantAccount.path == 'merchant-accounts'
+        assert MerchantAccount.name == 'Merchant Account'
 
     def test_base_actions(self):
         expected_actions = sort_actions([RetrieveMixin, ListMixin])
