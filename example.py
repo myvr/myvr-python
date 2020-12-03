@@ -1,6 +1,6 @@
 import myvr
 
-client = myvr.MyVRClient(api_key="LIVE_4aa0462404d040fd0237d147cec603be", api_url='https://api.myvr.com/')
+client = myvr.MyVRClient(api_key="LIVE_4aa0462404d040fd0237d147cec603be")
 
 try:
     prop = client.CustomField.create(**{'dataType': 'text', 'modelType': 'reservation'})  # **{'name': "API Demo Property"})
@@ -15,7 +15,7 @@ try:
     # prop = client.Property.delete(key=prop.key)
     # print('delete', 'error:', prop.error)
 
-except myvr.exceptions.MyVRAPIException as e:
+except myvr.exceptions.MyVRAPIError as e:
     print(e.data)
 
 # prop = client.Property.list()

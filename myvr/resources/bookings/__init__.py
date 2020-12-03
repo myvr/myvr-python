@@ -1,5 +1,3 @@
-# flake8: noqa
-
 from .cancellation_reason import CancellationReason
 from .expense import Expense
 from .payment import Payment

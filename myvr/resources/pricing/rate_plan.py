@@ -1,10 +1,16 @@
 from functools import partialmethod
 
-from myvr.api.mixins import RetrieveMixin, ListMixin, APIResource
+from myvr.api.mixins import APIResource
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
 
 
 class RatePlan(RetrieveMixin, ListMixin):
-    resource_url = '/rate-plans/'
-    model_name = 'Rate Plan'
+    path = 'rate-plans'
+    name = 'Rate Plan'
 
-    reset_rate = partialmethod(APIResource.object_action, path='rates/', method='PUT')
+    reset_rate = partialmethod(
+        APIResource.object_action,
+        path='rates',
+        method='PUT'
+    )

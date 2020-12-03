@@ -1,12 +1,16 @@
-from myvr.api.mixins import ListMixin, RetrieveMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
+
 from myvr.resources import Expense
-from tests.utils import get_resource_actions, sort_actions
+
+from tests.utils import get_resource_actions
+from tests.utils import sort_actions
 
 
 class TestExpense:
     def test_settings(self):
-        assert Expense.resource_url == '/reservation-expenses/'
-        assert Expense.model_name == 'Reservation Expense'
+        assert Expense.path == 'reservation-expenses'
+        assert Expense.name == 'Reservation Expense'
 
     def test_base_actions(self):
         expected_actions = sort_actions([RetrieveMixin, ListMixin])
