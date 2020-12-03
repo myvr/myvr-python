@@ -1,11 +1,6 @@
 import pytest
 
-from tests.utils import API_URL, API_VERSION
-
-
-@pytest.fixture
-def api_url():
-    return f'{API_URL}{API_VERSION}'
+from tests.utils import create_client
 
 
 @pytest.fixture
@@ -32,3 +27,8 @@ def resource_list_data():
 @pytest.fixture
 def key():
     return 'key'
+
+
+@pytest.fixture
+def myvr_client():
+    return create_client()

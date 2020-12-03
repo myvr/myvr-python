@@ -1,20 +1,25 @@
 import json
 
-from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
-from myvr.api.myvr_objects import MyVRCollection, MyVRObject
-from tests.utils import API_KEY, API_URL, API_VERSION
+from myvr.api.mixins import CreateMixin
+from myvr.api.mixins import DeleteMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
+from myvr.api.mixins import UpdateMixin
+from myvr.api.myvr_objects import MyVRCollection
+from myvr.api.myvr_objects import MyVRObject
+from tests.utils import API_SOURCE_URL
 
 
 class TestCreateMixin:
     class MyResource(CreateMixin):
-        model_name = 'MyResource'
-        resource_url = '/my-resource/'
+        name = 'MyResource'
+        path = 'my-resource'
 
-    def test_create(self, requests_mock, api_url, resource_data):
-        resource_url = f"{api_url}{self.MyResource.resource_url}"
+    def test_create(self, requests_mock, resource_data, myvr_client):
+        resource_url = API_SOURCE_URL + f'/{self.MyResource.path}/'
         requests_mock.post(resource_url, text=json.dumps(resource_data))
 
-        resource = self.MyResource(API_KEY, API_URL, API_VERSION)
+        resource = self.MyResource(myvr_client)
         response = resource.create(**resource_data)
 
         assert isinstance(response, MyVRObject)
@@ -24,14 +29,14 @@ class TestCreateMixin:
 
 class TestRetrieveMixin:
     class MyResource(RetrieveMixin):
-        model_name = 'MyResource'
-        resource_url = '/my-resource/'
+        name = 'MyResource'
+        path = 'my-resource'
 
-    def test_retrieve(self, requests_mock, api_url, resource_data):
-        resource_url = f"{api_url}{self.MyResource.resource_url}{resource_data['key']}/"
+    def test_retrieve(self, requests_mock, resource_data, myvr_client):
+        resource_url = API_SOURCE_URL + f'/{self.MyResource.path}/' + resource_data['key'] + '/'
 
         requests_mock.get(resource_url, text=json.dumps(resource_data))
-        resource = self.MyResource(API_KEY, API_URL, API_VERSION)
+        resource = self.MyResource(myvr_client)
         res = resource.retrieve(resource_data['key'])
 
         assert isinstance(res, MyVRObject)
@@ -40,13 +45,14 @@ class TestRetrieveMixin:
 
 class TestUpdateMixin:
     class MyResource(UpdateMixin):
-        model_name = 'MyResource'
-        resource_url = '/my-resource/'
+        name = 'MyResource'
+        path = 'my-resource'
 
-    def test_update(self, requests_mock, api_url, resource_data):
-        resource_url = f"{api_url}{self.MyResource.resource_url}{resource_data['key']}/"
+    def test_update(self, requests_mock, resource_data, myvr_client):
+        resource_url = f'{API_SOURCE_URL}/{self.MyResource.path}/'
+        resource_url += f'{resource_data["key"]}/'
         requests_mock.put(resource_url, text=json.dumps(resource_data))
-        resource = self.MyResource(API_KEY, API_URL, API_VERSION)
+        resource = self.MyResource(myvr_client)
         response = resource.update(**resource_data)
 
         assert isinstance(response, MyVRObject)
@@ -56,13 +62,14 @@ class TestUpdateMixin:
 
 class TestDeleteMixin:
     class MyResource(DeleteMixin):
-        model_name = 'MyResource'
-        resource_url = '/my-resource/'
+        name = 'MyResource'
+        path = 'my-resource'
 
-    def test_delete(self, requests_mock, api_url, resource_data):
-        resource_url = f"{api_url}{self.MyResource.resource_url}{resource_data['key']}/"
+    def test_delete(self, requests_mock, resource_data, myvr_client):
+        resource_url = f'{API_SOURCE_URL}/{self.MyResource.path}/'
+        resource_url += f'{resource_data["key"]}/'
         requests_mock.delete(resource_url, text='{}')
-        resource = self.MyResource(API_KEY, API_URL, API_VERSION)
+        resource = self.MyResource(myvr_client)
         response = resource.delete(resource_data['key'])
 
         assert isinstance(response, MyVRObject)
@@ -72,29 +79,15 @@ class TestDeleteMixin:
 
 class TestListMixin:
     class MyResource(ListMixin):
-        model_name = 'MyResource'
-        resource_url = '/my-resource/'
+        name = 'MyResource'
+        path = 'my-resource'
 
-    def test_list(self, requests_mock, api_url, resource_list_data):
-        resource_url = f"{api_url}{self.MyResource.resource_url}"
+    def test_list(self, requests_mock, resource_list_data, myvr_client):
+        resource_url = API_SOURCE_URL + f'/{self.MyResource.path}/'
         requests_mock.get(resource_url, text=json.dumps(resource_list_data))
 
-        resource = self.MyResource(API_KEY, API_URL, API_VERSION)
+        resource = self.MyResource(myvr_client)
         response = resource.list()
 
         assert isinstance(response, MyVRCollection)
         assert list(response) == resource_list_data['results']
-
-    def test_list_with_query(self, requests_mock, api_url):
-        resource_url = f'{api_url}{self.MyResource.resource_url}?a=1&b=2'
-        expected_result = [
-            {'key': 'key1', 'name': 'name1'},
-            {'key': 'key2', 'name': 'name2'},
-        ]
-        requests_mock.get(resource_url, text=json.dumps(expected_result))
-
-        resource = self.MyResource(API_KEY, API_URL, API_VERSION)
-        response = resource.list(query_params={'a': 1, 'b': 2})
-
-        assert isinstance(response, MyVRCollection)
-        assert len(response) == len(expected_result)

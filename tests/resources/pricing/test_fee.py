@@ -1,16 +1,24 @@
-from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
+from myvr.api.mixins import CreateMixin
+from myvr.api.mixins import DeleteMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
+from myvr.api.mixins import UpdateMixin
+
 from myvr.resources import Fee
+
+from tests.utils import get_resource_actions
+from tests.utils import sort_actions
 
 
 class TestFeeResource:
     def test_settings(self):
-        assert Fee.resource_url == '/fees/'
-        assert Fee.model_name == 'Fee'
+        assert Fee.path == 'fees'
+        assert Fee.name == 'Fee'
 
     def test_base_actions(self):
-        expected_actions = {
+        expected_actions = sort_actions([
             CreateMixin, RetrieveMixin, UpdateMixin, DeleteMixin, ListMixin
-        }
-        actual_actions = set(Fee.__mro__).intersection(expected_actions)
+        ])
+        actual_actions = get_resource_actions(Fee)
 
-        assert len(actual_actions) == len(expected_actions)
+        assert actual_actions == expected_actions

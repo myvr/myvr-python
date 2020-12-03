@@ -1,15 +1,21 @@
-from myvr.api.mixins import ListMixin, RetrieveMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
+
 from myvr.resources import CancellationReason
-from tests.utils import get_common_actions
+
+from tests.utils import get_resource_actions
+from tests.utils import sort_actions
 
 
 class TestCancellationReason:
     def test_settings(self):
-        assert CancellationReason.resource_url == '/reservation-cancellation-reasons/'
-        assert CancellationReason.model_name == 'Reservation Cancellation Reason'
+        resource_url = 'reservation-cancellation-reasons'
+        resource_name = 'Reservation Cancellation Reason'
+        assert CancellationReason.path == resource_url
+        assert CancellationReason.name == resource_name
 
     def test_base_actions(self):
-        expected_actions = {RetrieveMixin, ListMixin}
-        actual_actions = get_common_actions(CancellationReason, expected_actions)
+        expected_actions = sort_actions([RetrieveMixin, ListMixin])
+        actual_actions = get_resource_actions(CancellationReason)
 
-        assert len(actual_actions) == len(expected_actions)
+        assert actual_actions == expected_actions

@@ -1,17 +1,19 @@
-from myvr.api.mixins import ListMixin, RetrieveMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
+
 from myvr.resources import FeePlan
-from tests.utils import get_common_actions
+
+from tests.utils import get_resource_actions
+from tests.utils import sort_actions
 
 
 class TestFeePlanResource:
     def test_settings(self):
-        assert FeePlan.resource_url == '/fee-plans/'
-        assert FeePlan.model_name == 'Fee Plan'
+        assert FeePlan.path == 'fee-plans'
+        assert FeePlan.name == 'Fee Plan'
 
     def test_base_actions(self):
-        expected_actions = {
-            RetrieveMixin, ListMixin
-        }
-        actual_actions = get_common_actions(FeePlan, expected_actions)
+        expected_actions = sort_actions([RetrieveMixin, ListMixin])
+        actual_actions = get_resource_actions(FeePlan)
 
-        assert len(actual_actions) == len(expected_actions)
+        assert actual_actions == expected_actions
