@@ -5,8 +5,8 @@ from tests.utils import get_resource_actions, sort_actions
 
 class TestTag:
     def test_settings(self):
-        assert Tag.resource_url == '/tags/'
-        assert Tag.model_name == 'Tag'
+        assert Tag.path == 'tags'
+        assert Tag.name == 'Tag'
 
     def test_base_actions(self):
         expected_actions = sort_actions([CreateMixin, RetrieveMixin, DeleteMixin, ListMixin])

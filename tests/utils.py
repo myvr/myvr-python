@@ -1,7 +1,10 @@
-from typing import List, Type, TypeVar
+from typing import List
+from typing import Type
+from typing import TypeVar
 
-from myvr.api.base import APIResource
+from myvr import MyVRClient
 from myvr.api.mixins import ModelViewSet
+from myvr.api.resource import APIResource
 
 API_URL = 'http://example.com/'
 API_KEY = 'test_api_key'
@@ -12,6 +15,14 @@ RESOURCE_PARAMS = (API_KEY, API_URL, API_VERSION)
 
 ResourceClass = Type[APIResource]
 ResourceInstance = TypeVar('ResourceInstance', bound=APIResource)
+
+
+class MockClient(MyVRClient):
+    api_url = API_URL
+
+
+def create_client() -> MockClient:
+    return MockClient(API_KEY, API_VERSION)
 
 
 def get_resource_actions(resource: ResourceClass) -> List[ResourceClass]:

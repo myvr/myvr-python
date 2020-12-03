@@ -5,8 +5,8 @@ from tests.utils import get_resource_actions, sort_actions
 
 class TestContactNone:
     def test_settings(self):
-        assert ContactNote.resource_url == '/contact-notes/'
-        assert ContactNote.model_name == 'Contact Note'
+        assert ContactNote.path == 'contact-notes'
+        assert ContactNote.name == 'Contact Note'
 
     def test_base_actions(self):
         expected_actions = sort_actions([

@@ -1,6 +1,7 @@
-from myvr.api.mixins import ListMixin, RetrieveMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
 
 
 class Refund(RetrieveMixin, ListMixin):
-    resource_url = '/reservation-refunds/'
-    model_name = 'Reservation Refund'
+    path = 'reservation-refunds'
+    name = 'Reservation Refund'

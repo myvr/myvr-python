@@ -1,23 +1,23 @@
 __all__ = [
-    'MyVRException',
+    'MyVRError',
     'ResourceUrlError',
-    'MyVRAPIException',
+    'MyVRAPIError',
 ]
 
 
-class MyVRException(Exception):
+class MyVRError(Exception):
     """Wrapper to express our own exception"""
     pass
 
 
-class ResourceUrlError(MyVRException):
+class ResourceUrlError(MyVRError):
     def __str__(self):
-        return 'API url must end with /'
+        return 'API url should not contain /'
 
 
-class MyVRAPIException(Exception):
+class MyVRAPIError(Exception):
     """Wrapper to express myvr.com API exception"""
 
     def __init__(self, data):
         self.data = data
-        super(MyVRAPIException, self).__init__()
+        super(MyVRAPIError, self).__init__()

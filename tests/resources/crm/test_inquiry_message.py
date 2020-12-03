@@ -5,8 +5,8 @@ from tests.utils import get_resource_actions, sort_actions
 
 class TestInquiryMessage:
     def test_settings(self):
-        assert InquiryMessage.resource_url == '/inquiry-messages/'
-        assert InquiryMessage.model_name == 'Inquiry Message'
+        assert InquiryMessage.path == 'inquiry-messages'
+        assert InquiryMessage.name == 'Inquiry Message'
 
     def test_base_actions(self):
         expected_actions = sort_actions([CreateMixin, RetrieveMixin, ListMixin])

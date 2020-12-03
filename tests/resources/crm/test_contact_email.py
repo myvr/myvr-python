@@ -5,8 +5,8 @@ from tests.utils import get_resource_actions, sort_actions
 
 class TestContactEmail:
     def test_settings(self):
-        assert ContactEmail.resource_url == '/contact-emails/'
-        assert ContactEmail.model_name == 'Contact Email'
+        assert ContactEmail.path == 'contact-emails'
+        assert ContactEmail.name == 'Contact Email'
 
     def test_base_actions(self):
         expected_actions = sort_actions([

@@ -1,12 +1,19 @@
-from myvr.api.mixins import CreateMixin, DeleteMixin, ListMixin, RetrieveMixin, UpdateMixin
+from myvr.api.mixins import CreateMixin
+from myvr.api.mixins import DeleteMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
+from myvr.api.mixins import UpdateMixin
+
 from myvr.resources import Amenity
-from tests.utils import get_resource_actions, sort_actions
+
+from tests.utils import get_resource_actions
+from tests.utils import sort_actions
 
 
 class TestAmenityResource:
     def test_settings(self):
-        assert Amenity.resource_url == '/property-amenities/'
-        assert Amenity.model_name == 'Amenity'
+        assert Amenity.path == 'property-amenities'
+        assert Amenity.name == 'Amenity'
 
     def test_base_actions(self):
         expected_actions = sort_actions([

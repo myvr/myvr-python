@@ -5,8 +5,8 @@ from tests.utils import get_resource_actions, sort_actions
 
 class TestContactPhone:
     def test_settings(self):
-        assert ContactPhone.resource_url == '/contact-phones/'
-        assert ContactPhone.model_name == 'Contact Phone'
+        assert ContactPhone.path == 'contact-phones'
+        assert ContactPhone.name == 'Contact Phone'
 
     def test_base_actions(self):
         expected_actions = sort_actions([
