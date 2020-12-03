@@ -45,21 +45,21 @@ class APIResource:
 
     def object_action(
             self,
-            key: str,
+            object_key: str,
             path: str,
             method: str = 'POST',
             **data
     ) -> MyVRObject:
         """
         Performs object extra action
-        :param key: Object's key
+        :param object_key: Object's key
         :param path: action path
         :param data: dict with parameters
         :param method: HTTP method of the action
         :return: MyVRObject
         """
 
-        url = self.add_path(self.base_url, key, path)
+        url = self.add_path(self.base_url, object_key, path)
         return self._client.request(
             method,
             url,
