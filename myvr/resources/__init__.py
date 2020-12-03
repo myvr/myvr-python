@@ -1,3 +1,6 @@
+from .accounts import Account
+from .accounts import User
+
 from .bookings import CancellationReason
 from .bookings import Expense
 from .bookings import Payment
@@ -6,7 +9,6 @@ from .bookings import Promotion
 from .bookings import Quote
 from .bookings import Refund
 from .bookings import Reservation
-
 
 from .pricing import Fee
 from .pricing import FeePlan
