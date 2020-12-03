@@ -10,9 +10,12 @@ from myvr.api.myvr_objects import MyVRObject
 from myvr.resources import Amenity
 from myvr.resources import CalendarEvent
 from myvr.resources import CancellationReason
+from myvr.resources import ChannelListing
 from myvr.resources import DailyAvailability
 from myvr.resources import Expense
 from myvr.resources import Fee
+from myvr.resources import Group
+from myvr.resources import Membership
 from myvr.resources import Payment
 from myvr.resources import PaymentMethod
 from myvr.resources import Photo
@@ -62,6 +65,13 @@ class MyVRClient:
         self.RatePlan = RatePlan(self)
         self.Fee = Fee(self)
         self.FeePlan = Fee(self)
+
+        # Property Groups
+        self.Group = Group(self)
+        self.Membership = Membership(self)
+
+        # Channels
+        self.ChannelListing = ChannelListing(self)
 
     @property
     def base_url(self):

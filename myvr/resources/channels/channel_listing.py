@@ -1,6 +1,7 @@
-from myvr.api.mixins import RetrieveMixin, ListMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
 
 
 class ChannelListing(RetrieveMixin, ListMixin):
-    resource_url = '/channel-listings/'
-    model_name = 'Channel Listing'
+    path = 'channel-listings'
+    name = 'Channel Listing'
