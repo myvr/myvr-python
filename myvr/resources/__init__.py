@@ -12,6 +12,18 @@ from .bookings import Reservation
 
 from .channels import ChannelListing
 
+from .crm import Contact
+from .crm import ContactAddress
+from .crm import ContactEmail
+from .crm import ContactNote
+from .crm import ContactPhone
+from .crm import ContactTag
+from .crm import Inquiry
+from .crm import InquiryMessage
+from .crm import MessageTemplate
+from .crm import Source
+from .crm import Tag
+
 from .pricing import Fee
 from .pricing import FeePlan
 from .pricing import Rate

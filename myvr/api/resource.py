@@ -10,7 +10,7 @@ class APIResource:
     response processing.
     base_url: str, API-url to perform requests should be
     specified in general class not the abstract.
-    model_name: str, The name of the model should be
+    name: str, The name of the model should be
     specified in general class not the abstract.
     """
 
