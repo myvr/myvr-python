@@ -9,7 +9,6 @@ Learn about the MyVR API here:
 https://developer.myvr.com/api/
 
 ## Getting started
-***
 
 ### Installation
 
@@ -353,7 +352,7 @@ client.Room.delete('room_key')
 
 ```python
 client.RatePlan.retrieve('RatePlanKey')
-client.RatePlan.list(limit=10, offset=10) or client.RatePlan.list(query_params={'limit': 10, 'offset': 10}) 
+client.RatePlan.list() 
     
 client.RatePlan.reset_rate('RatePlanKey')
 ```
@@ -365,14 +364,14 @@ client.Rate.create(**{'baseRate': True, 'minStay': 3})
 client.Rate.retrieve('RateKey')
 client.Rate.update('RateKey', **{'baseRate': False, 'minStay': 4})
 client.Rate.delete('RateKey')
-client.Rate.list(limit=10, offset=10) or client.Rate.list(query_params={'limit': 10, 'offset': 10}) 
+client.Rate.list() 
 ```
 
 #### Fee Plan
 
 ```python
 client.FeePlan.retrieve('FeePlanKey')
-client.FeePlan.list(limit=10, offset=10) or client.FeePlan.list(query_params={'limit': 10, 'offset': 10}) 
+client.FeePlan.list() 
 ```
 
 #### Fee
@@ -382,7 +381,7 @@ client.Fee.create(**{'cost': 100, 'guestThreshold': 3})
 client.Fee.retrieve('FeeKey')
 client.Fee.update('FeeKey', **{'description': 'new description', 'guestThreshold': 4})
 client.Fee.delete('FeeKey')
-client.Fee.list(limit=10, offset=10) or client.Fee.list(query_params={'limit': 10, 'offset': 10}) 
+client.Fee.list() 
 ```
 
 ### Bookings
@@ -391,21 +390,21 @@ client.Fee.list(limit=10, offset=10) or client.Fee.list(query_params={'limit': 1
 
 ```python
 client.CancellationReason.retrieve('CancellationReasonKey')
-client.CancellationReason.list(limit=10, offset=10) or client.CancellationReason.list(query_params={'limit': 10, 'offset': 10}) 
+client.CancellationReason.list() 
 ```
 
 #### Expense
 
 ```python
 client.Expense.retrieve('ExpenseKey')
-client.Expense.list(limit=10, offset=10) or client.Expense.list(query_params={'limit': 10, 'offset': 10}) 
+client.Expense.list() 
 ```
 
 #### Refund
 
 ```python
 client.Refund.retrieve('RefundKey')
-client.Refund.list(limit=10, offset=10) or client.Refund.list(query_params={'limit': 10, 'offset': 10}) 
+client.Refund.list() 
 ```
 
 #### Payment
@@ -413,7 +412,7 @@ client.Refund.list(limit=10, offset=10) or client.Refund.list(query_params={'lim
 ```python
 client.Payment.create(**{'reservation': 'ReservationKey', 'amount': 400'})
 client.Payment.retrieve('PaymentKey')
-client.Payment.list(limit=10, offset=10, **{'status': 'unpaid'}) or client.Payment.list(query_params={'limit': 10, 'offset': 10}) 
+client.Payment.list() 
 
 client.Payment.process('PaymentKey', **{'paymentMethod': 'method'})
 client.Payment.refund('PaymentKey', **{'amount': 500})
@@ -425,7 +424,7 @@ client.Payment.record('PaymentKey', **{'datePaid': '2020-02-02'})
 ```python
 client.PaymentMethod.create(**{'reservation': 'ReservationKey', 'stripePaymentMethod': 'method'})
 client.PaymentMethod.retrieve('PaymentMethodKey')
-client.PaymentMethod.list(limit=10, offset=10, **{'reservation': 'ReservationKey'}) 
+client.PaymentMethod.list() 
 ```
 
 #### Quote
@@ -442,7 +441,7 @@ client.Quote.create_custom(**{'amount': 500, 'checkIn': '2020-02-02', 'checkOut'
 ```python
 client.Promotion.create(**{'code': 'ASD', 'discounts': [{"cost": "50.000", "currency": "USD"}], 'name': 'name'})
 client.Promotion.retrieve('PromotionKey')
-client.Promotion.list(limit=10, offset=10, **{'reservation': 'ReservationKey'}) 
+client.Promotion.list() 
 ```
 
 #### Reservation
@@ -451,7 +450,7 @@ client.Promotion.list(limit=10, offset=10, **{'reservation': 'ReservationKey'})
 client.Reservation.create(**{**{'property': 'PropertyKey', 'checkIn': '2020-02-02', 'checkOut': '2020-02-03'})
 client.Reservation.retrieve('ReservationKey')
 client.Reservation.update('ReservationKey', **{'adults': 4})
-client.Reservation.list(limit=10, offset=10б **{'status': 'canceled'}) 
+client.Reservation.list() 
 
 client.Reservation.create_from_quote('QuoteKey', **{'validateAvailability': False})
 client.Reservation.update_from_quote('QuoteKey', **{'validateAvailability': True})
@@ -469,7 +468,7 @@ client.Group.create(**{'name': 'name'})
 client.Group.retrieve('GroupKey')
 client.Group.update('GroupKey', **{'name': 'new name'})
 client.Group.delete('GroupKey')
-client.Group.list(limit=10, offset=10) or client.Group.list(query_params={'limit': 10, 'offset': 10}) 
+client.Group.list() 
 ```
 
 #### Membership
@@ -479,7 +478,7 @@ client.Membership.create(**{'group': 'GroupKey', 'property': 'PropertyKey'})
 client.Membership.retrieve('MembershipKey')
 client.Membership.update('MembershipKey', **{'property': 'PropertyKey'})
 client.Membership.delete('MembershipKey')
-client.Membership.list(limit=10, offset=10) or client.Membership.list(query_params={'limit': 10, 'offset': 10}) 
+client.Membership.list() 
 ```
 
 ### Channel Listing
@@ -488,7 +487,7 @@ client.Membership.list(limit=10, offset=10) or client.Membership.list(query_para
 
 ```python
 client.ChannelListing.retrieve('ChannelListingKey')
-client.ChannelListing.list(limit=10, offset=10) or client.ChannelListing.list(query_params={'limit': 10, 'offset': 10}) 
+client.ChannelListing.list() 
 ```
 
 ### Settings
@@ -498,12 +497,12 @@ client.ChannelListing.list(limit=10, offset=10) or client.ChannelListing.list(qu
 ```python
 client.CustomField.create(**{'dataType': 'text', 'modelType': 'property'})
 client.CustomField.retrieve('CustomFieldKey')
-client.CustomField.list(limit=10, offset=10) or client.CustomField.list(query_params={'limit': 10, 'offset': 10}) 
+client.CustomField.list() 
 ```
 
 #### Merchant Account
 
 ```python
 client.MerchantAccount.retrieve('MerchantAccountKey')
-client.MerchantAccount.list(limit=10, offset=10) or client.MerchantAccount.list(query_params={'limit': 10, 'offset': 10}) 
+client.MerchantAccount.list() 
 ```
