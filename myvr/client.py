@@ -11,6 +11,11 @@ from myvr.resources import Account
 from myvr.resources import Amenity
 from myvr.resources import CalendarEvent
 from myvr.resources import CancellationReason
+from myvr.resources import CustomField
+from myvr.resources import DailyAvailability
+from myvr.resources import Expense
+from myvr.resources import Fee
+from myvr.resources import MerchantAccount
 from myvr.resources import ChannelListing
 from myvr.resources import Contact
 from myvr.resources import ContactAddress
@@ -91,6 +96,10 @@ class MyVRClient:
         self.RatePlan = RatePlan(self)
         self.Fee = Fee(self)
         self.FeePlan = Fee(self)
+
+        # Settings
+        self.MerchantAccount = MerchantAccount(self)
+        self.CustomField = CustomField(self)
 
         # Accounts
         self.Account = Account(self)
