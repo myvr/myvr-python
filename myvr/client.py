@@ -7,6 +7,7 @@ import requests
 from myvr.api.exceptions import MyVRAPIError
 from myvr.api.myvr_objects import MyVRCollection
 from myvr.api.myvr_objects import MyVRObject
+from myvr.resources import Account
 from myvr.resources import Amenity
 from myvr.resources import CalendarEvent
 from myvr.resources import CancellationReason
@@ -28,6 +29,7 @@ from myvr.resources import RatePlan
 from myvr.resources import Refund
 from myvr.resources import Reservation
 from myvr.resources import Room
+from myvr.resources import User
 
 
 class MyVRClient:
@@ -65,6 +67,10 @@ class MyVRClient:
         self.RatePlan = RatePlan(self)
         self.Fee = Fee(self)
         self.FeePlan = Fee(self)
+
+        # Accounts
+        self.Account = Account(self)
+        self.User = User(self)
 
         # Property Groups
         self.Group = Group(self)
