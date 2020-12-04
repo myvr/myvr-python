@@ -1,6 +1,9 @@
-from myvr.api.mixins import CreateMixin, ListMixin, RetrieveMixin
+from myvr.api.mixins import CreateMixin
+from myvr.api.mixins import ListMixin
+from myvr.api.mixins import RetrieveMixin
 from myvr.resources import InquiryMessage
-from tests.utils import get_resource_actions, sort_actions
+from tests.utils import get_resource_actions
+from tests.utils import sort_actions
 
 
 class TestInquiryMessage:
