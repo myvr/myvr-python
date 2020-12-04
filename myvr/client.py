@@ -11,11 +11,6 @@ from myvr.resources import Account
 from myvr.resources import Amenity
 from myvr.resources import CalendarEvent
 from myvr.resources import CancellationReason
-from myvr.resources import CustomField
-from myvr.resources import DailyAvailability
-from myvr.resources import Expense
-from myvr.resources import Fee
-from myvr.resources import MerchantAccount
 from myvr.resources import ChannelListing
 from myvr.resources import Contact
 from myvr.resources import ContactAddress
@@ -23,6 +18,7 @@ from myvr.resources import ContactEmail
 from myvr.resources import ContactNote
 from myvr.resources import ContactPhone
 from myvr.resources import ContactTag
+from myvr.resources import CustomField
 from myvr.resources import DailyAvailability
 from myvr.resources import Expense
 from myvr.resources import Fee
@@ -30,6 +26,7 @@ from myvr.resources import Group
 from myvr.resources import Inquiry
 from myvr.resources import InquiryMessage
 from myvr.resources import Membership
+from myvr.resources import MerchantAccount
 from myvr.resources import MessageTemplate
 from myvr.resources import Payment
 from myvr.resources import PaymentMethod

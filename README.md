@@ -1,7 +1,7 @@
 ![GNU license](https://img.shields.io/badge/licence-GNU-blue.svg)
 
 # MyVR Python Library
-***
+
 The MyVR Python library provides access to the MyVR API from 
 applications written in Python.
 
@@ -12,6 +12,7 @@ https://developer.myvr.com/api/
 ***
 
 ### Installation
+
 [comment]: <> (`pip install myvr-python`)
 
 ### Initialization
@@ -48,7 +49,8 @@ client.Property.list(
 ```
 
 ### Responses
-Result json response is wrapped into either dict like `MyVRObject` or list like `MyVRCollection`.  
+
+Result json response is wrapped into either dict like `MyVRObject` or list like `MyVRCollection`.
 `MyVRObject` stores object's key as meta data and `MyVRCollection` stores pagination info under `meta` key.
 
 `MyVRObject` example:
@@ -101,7 +103,7 @@ client.Fee.list()
 ```
 
 ## API structure
-***
+
 All endpoints follow the structure listed in the official MyVR documentation. 
 The structure will be listed below and then the individual methods available after.
 
@@ -155,26 +157,196 @@ MyVR
 ```
 
 ## API endpoints
-***
+
 Below is the list of all endpoints and methods that can be called.  
 Every endpoint returns `MyVRObject` or `MyVRCollection` for list endpoints.  
 Endpoint arguments are passed as `**kwargs` expect of object's key for update, retrieve and delete actions.
 For list endpoints you can provide dict with query string params under `query_params` argument name.
-The below code assumes that you have initialized the `MyVRClient` class as listed above with the name client.
+The below code assumes that you have initialized the `MyVRClient` class as listed above with the name `client`.
 
 ### Accounts
 
-#### Account
+#### Accounts
+
 ```python
 client.Account.retrieve('account_key')
 ```
 
-#### User
+#### Users
+
 ```python
 client.User.retrieve('user_key')
 client.User.list()
 ```
 
+### CRM
+
+#### Contacts
+
+```python
+client.Contact.create(firstName='', lastName='')
+client.Contact.retrieve('contact_key')
+client.Contact.update('contact_key', firstName='')
+client.Contact.list()
+```
+
+#### Contact Addresses
+
+```python
+client.ContactAddress.create(city='', contact='contact_key')
+client.ContactAddress.retrieve('address_key')
+client.ContactAddress.update('address_key', city='', contact='contact_key')
+client.ContactAddress.list()
+client.ContactAddress.delete('address_key')
+```
+
+#### Contact Emails
+
+```python
+client.ContactEmail.create(email='', contact='contact_key')
+client.ContactEmail.retrieve('email_key')
+client.ContactEmail.update('email_key', contact='contact_key', type='personal')
+client.ContactEmail.list()
+client.ContactEmail.delete('email_key')
+```
+
+#### Contact Notes
+
+```python
+client.ContactNote.create(note='', contact='contact_key')
+client.ContactNote.retrieve('note_key')
+client.ContactNote.update('note_key', note='', contact='contact_key')
+client.ContactNote.list()
+client.ContactNote.delete('note_key')
+```
+
+#### Contact Phones
+
+```python
+client.ContactPhone.create(phone='', contact='contact_key')
+client.ContactPhone.retrieve('phone_key')
+client.ContactPhone.update('phone_key', contact='contact_key', phone='')
+client.ContactPhone.list()
+client.ContactPhone.delete('phone_key')
+```
+
+#### Contact Tags
+
+```python
+client.ContactTag.create(tag='tag_key', contact='contact_key')
+client.ContactTag.retrieve('contact_tag_key')
+client.ContactTag.update('contact_tag_key', tag='tag_key', contact='contact_key', tag='')
+client.ContactTag.list()
+client.ContactTag.delete('contact_tag_key')
+```
+
+#### Inquiries
+
+```python
+client.Inquiry.create(email='', firstName='', lastName='', property='property_key')
+client.Inquiry.retrieve('inquiry_key')
+client.Inquiry.list()
+client.Inquiry.assign('inquiry_key', user='')
+```
+
+#### Inquiry Messages
+
+```python
+client.InquiryMessage.create(content='', inquiry='inquiry_key')
+client.InquiryMessage.retrieve('inquiry_message_key')
+client.InquiryMessage.list()
+```
+
+#### Message Templates
+
+```python
+client.MessageTemplate.retrieve('message_template_key')
+client.MessageTemplate.list()
+client.MessageTemplate.render('message_template_key')
+```
+
+#### Sources
+
+```python
+client.Source.create(code='', name='')
+client.Source.retrieve('source_key')
+client.Source.update('source_key', name='')
+client.Source.list()
+```
+
+#### Tags
+
+```python
+client.Tag.create(tag='')
+client.Tag.retrieve('tag_key')
+client.Tag.list()
+client.Tag.delete('tag_key')
+```
+
+### Properties
+
+#### Amenities
+
+```python
+client.Amenity.create(amenity='', property='property_key')
+client.Amenity.retrieve('amenity_key')
+client.Amenity.update(amenity='', property='property_key')
+client.Amenity.list()
+client.Amenity.delete('amenity_key')
+```
+
+#### Calendar Events
+
+```python
+client.CalendarEvent.create(property='property_key', startDate='', stopDate='', status='')
+client.CalendarEvent.retrieve('calendar_event_key')
+client.CalendarEvent.update('calendar_event_key', startDate='')
+client.CalendarEvent.list()
+client.CalendarEvent.delete('calendar_event_key')
+```
+
+#### Daily Availability
+
+```python
+client.DailyAvailability.list()
+```
+
+#### Photos
+
+```python
+client.Photo.create(sourceUrl='', property='property_key')
+client.Photo.retrieve('photo_key')
+client.Photo.update('photo_key', altText='')
+client.Photo.list()
+client.Photo.delete('photo_key')
+```
+
+#### Property
+
+```python
+client.Property.create(name='')
+client.Property.retrieve('property_key')
+client.Property.update('property_key', name='')
+client.Property.list()
+client.Property.delete('property_key')
+client.Property.reset_rate('property_key')
+```
+
+#### Property Hierarchy
+
+```python
+client.PropertyHierarchy.list()
+```
+
+#### Rooms
+
+```python
+client.Room.create(property='property_key')
+client.Room.retrieve('room_key')
+client.Room.update('room_key')
+client.Room.list()
+client.Room.delete('room_key')
+```
 ### Pricing
 
 #### Rate Plan
