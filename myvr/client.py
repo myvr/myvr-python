@@ -7,9 +7,11 @@ import requests
 from myvr.api.exceptions import MyVRAPIError
 from myvr.api.myvr_objects import MyVRCollection
 from myvr.api.myvr_objects import MyVRObject
+from myvr.resources import Account
 from myvr.resources import Amenity
 from myvr.resources import CalendarEvent
 from myvr.resources import CancellationReason
+from myvr.resources import ChannelListing
 from myvr.resources import Contact
 from myvr.resources import ContactAddress
 from myvr.resources import ContactEmail
@@ -19,8 +21,10 @@ from myvr.resources import ContactTag
 from myvr.resources import DailyAvailability
 from myvr.resources import Expense
 from myvr.resources import Fee
+from myvr.resources import Group
 from myvr.resources import Inquiry
 from myvr.resources import InquiryMessage
+from myvr.resources import Membership
 from myvr.resources import MessageTemplate
 from myvr.resources import Payment
 from myvr.resources import PaymentMethod
@@ -36,6 +40,7 @@ from myvr.resources import Reservation
 from myvr.resources import Room
 from myvr.resources import Source
 from myvr.resources import Tag
+from myvr.resources import User
 
 
 class MyVRClient:
@@ -86,6 +91,17 @@ class MyVRClient:
         self.RatePlan = RatePlan(self)
         self.Fee = Fee(self)
         self.FeePlan = Fee(self)
+
+        # Accounts
+        self.Account = Account(self)
+        self.User = User(self)
+
+        # Property Groups
+        self.Group = Group(self)
+        self.Membership = Membership(self)
+
+        # Channels
+        self.ChannelListing = ChannelListing(self)
 
     @property
     def base_url(self):
