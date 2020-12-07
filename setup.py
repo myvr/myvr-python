@@ -23,20 +23,30 @@ with open('README.md') as readme:
     long_description = readme.read()
 
 
+install_requires = [
+    'requests==2.25.0',
+]
+
+
 setup(
     name='myvr-python',
     version=get_version('myvr/__init__.py'),
     description='Python wrapper for MyVR API',
     long_description=long_description,
     long_description_content_type='text/markdown',
+    license='GNU',
     url='https://github.com/myvr/myvr-python',
     classifiers=[
-        'Programming Language :: Python :: 3',
+        'Development Status :: 4 - Beta',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'License :: GNU GENERAL PUBLIC LICENSE',
         'Operating System :: OS Independent',
     ],
+    key_words=['MyVR', 'API', 'client', 'wrapper'],
     author='MyVR',
     packages=['myvr'],
-    install_requires=[],
-    python_requires='>=3.6, <4',
+    install_requires=install_requires,
+    python_requires='>=3.7, <4',
 )
