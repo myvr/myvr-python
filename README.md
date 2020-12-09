@@ -12,12 +12,12 @@ https://developer.myvr.com/api/
 
 ### Installation
 
-[comment]: <> (`pip install myvr-python`)
+`pip install myvr-python`
 
 ### Initialization
 
 Grab `YOUR_API_KEY` from myvr account (Setup > API & Data Access > API Access). 
-Optionally you set api version as `version='v1'` (`'v1'` is default value and only one supported version).
+Optionally you can set api version as `version='v1'` (`'v1'` is default value and only one supported version).
 
 ```python
 from myvr import MyVRClient
@@ -50,7 +50,7 @@ client.Property.list(
 ### Responses
 
 Result json response is wrapped into either dict like `MyVRObject` or list like `MyVRCollection`.
-`MyVRObject` stores object's key as meta data and `MyVRCollection` stores pagination info under `meta` key.
+`MyVRObject` stores object's key and `MyVRCollection` stores pagination info under `meta` key.
 
 `MyVRObject` example:
 ```python
@@ -159,8 +159,8 @@ MyVR
 
 Below is the list of all endpoints and methods that can be called.  
 Every endpoint returns `MyVRObject` or `MyVRCollection` for list endpoints.  
-Endpoint arguments are passed as `**kwargs` expect of object's key for update, retrieve and delete actions.
-For list endpoints you can provide dict with query string params under `query_params` argument name.
+Endpoint arguments are passed as `**kwargs` except of object's key for update, retrieve and delete actions.
+For list endpoints you can provide dict with query string parameters under `query_params` argument name.
 The below code assumes that you have initialized the `MyVRClient` class as listed above with the name `client`.
 
 ### Accounts
