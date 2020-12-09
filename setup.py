@@ -36,7 +36,7 @@ setup(
     long_description_content_type='text/markdown',
     license='GNU',
     url='https://github.com/myvr/myvr-python',
-    download_url='https://github.com/myvr/myvr-python/archive/0.0.2.tar.gz',
+    download_url='https://github.com/myvr/myvr-python/archive/0.0.3.tar.gz',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Programming Language :: Python :: 3.7',
