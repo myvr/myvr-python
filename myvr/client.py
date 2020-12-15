@@ -11,6 +11,7 @@ from myvr.resources import Account
 from myvr.resources import Amenity
 from myvr.resources import CalendarEvent
 from myvr.resources import CancellationReason
+from myvr.resources import ChannelAccount
 from myvr.resources import ChannelListing
 from myvr.resources import Contact
 from myvr.resources import ContactAddress
@@ -108,6 +109,7 @@ class MyVRClient:
 
         # Channels
         self.ChannelListing = ChannelListing(self)
+        self.ChannelAccount = ChannelAccount(self)
 
     @property
     def base_url(self):
