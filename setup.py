@@ -1,6 +1,7 @@
 import codecs
 import os
 
+from setuptools import find_packages
 from setuptools import setup
 
 
@@ -47,7 +48,12 @@ setup(
     ],
     key_words=['MyVR', 'API', 'client', 'wrapper'],
     author='MyVR',
-    packages=['myvr'],
+    packages=find_packages(
+        include=[
+            'myvr',
+            'myvr.*',
+        ]
+    ),
     install_requires=install_requires,
     python_requires='>=3.7, <4',
 )
