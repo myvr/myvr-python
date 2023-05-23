@@ -25,7 +25,7 @@ with open('README.md') as readme:
 
 
 install_requires = [
-    'requests==2.25.0',
+    'requests==2.31.0',
 ]
 
 
